@@ -13,12 +13,23 @@ type RingConfig = {
   thickness?: number;
 };
 
+type ProductSpriteConfig = {
+  anchor: [number, number];
+  depth: number;
+  mobilePosition: [number, number, number];
+  scale: number;
+  src: string;
+};
+
 const ringConfigs: RingConfig[] = [
-  { position: [-1.6, 0.6, 0], rotation: [Math.PI / 4, 0.2, 0], color: 0x17191d, roughness: 0.72 },
-  { position: [1.5, 0.3, 0.5], rotation: [0.1, Math.PI / 3, 0], color: 0x6f382c, roughness: 0.48, thickness: 0.2 },
   { position: [0, -1.1, -0.5], rotation: [Math.PI / 2.2, 0, Math.PI / 4], color: 0x238653, roughness: 0.58 },
   { position: [0.5, 1.4, -1], rotation: [0.2, Math.PI / 4, Math.PI / 2], color: 0x2867a3, roughness: 0.32, metalness: 0.2, scale: 0.7, thickness: 0.12 },
   { position: [0.5, 1.4, -0.8], rotation: [-0.1, -Math.PI / 4, -Math.PI / 2.2], color: 0xc62828, roughness: 0.5, scale: 0.8, thickness: 0.07 },
+];
+
+const productSpriteConfigs: ProductSpriteConfig[] = [
+  { anchor: [0.2, 0.48], mobilePosition: [-1.85, 0.4, 0], depth: 0, scale: 3, src: '/hero-products/1.png' },
+  { anchor: [0.84, 0.5], mobilePosition: [1.8, 0.34, 0.5], depth: 0.5, scale: 3.6, src: '/hero-products/2.png' },
 ];
 
 export default function Hero3D() {
@@ -47,7 +58,6 @@ export default function Hero3D() {
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     renderer.domElement.style.display = 'block';
-    renderer.domElement.style.touchAction = 'pan-y';
     mount.appendChild(renderer.domElement);
     mount.dataset.webgl = 'ready';
 
@@ -58,7 +68,7 @@ export default function Hero3D() {
     const stage = new THREE.Group();
     scene.add(stage);
 
-    const rings = ringConfigs.map((config, index) => {
+    const rings = ringConfigs.map((config) => {
       const geometry = new THREE.TorusGeometry(1, config.thickness ?? 0.15, 36, 128);
       const material = new THREE.MeshPhysicalMaterial({
         color: config.color,
@@ -73,10 +83,24 @@ export default function Hero3D() {
       mesh.scale.setScalar(config.scale ?? 1);
       mesh.castShadow = true;
       mesh.receiveShadow = true;
-      mesh.userData.baseY = config.position[1];
-      mesh.userData.phase = index * 0.9;
       stage.add(mesh);
       return mesh;
+    });
+
+    const textureLoader = new THREE.TextureLoader();
+    const productSprites = productSpriteConfigs.map((config) => {
+      const texture = textureLoader.load(config.src);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      const material = new THREE.SpriteMaterial({
+        map: texture,
+        transparent: true,
+        depthWrite: false,
+      });
+      const sprite = new THREE.Sprite(material);
+      sprite.position.z = config.depth;
+      sprite.scale.set(config.scale, config.scale, 1);
+      stage.add(sprite);
+      return { material, sprite, texture };
     });
 
     const floor = new THREE.Mesh(
@@ -109,11 +133,6 @@ export default function Hero3D() {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
     let reduceMotion = media.matches;
     let frame = 0;
-    let dragging = false;
-    let pointerX = 0;
-    let pointerY = 0;
-    const targetRotation = new THREE.Vector2(0, 0);
-    const clock = new THREE.Clock();
 
     const render = () => renderer.render(scene, camera);
 
@@ -128,53 +147,46 @@ export default function Hero3D() {
         const mobileScale = THREE.MathUtils.clamp(width / 900, 0.48, 0.7);
         stage.position.set(0, 0.58, 0);
         stage.scale.setScalar(mobileScale);
+        productSprites.forEach(({ sprite }, index) => {
+          const config = productSpriteConfigs[index];
+          sprite.position.set(...config.mobilePosition);
+          sprite.scale.set(config.scale, config.scale, 1);
+          sprite.visible = true;
+        });
       } else {
-        stage.position.set(1.65, 0, 0);
+        stage.position.set(0.85, 0, 0);
         stage.scale.setScalar(1);
+        const viewHeight = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.position.z;
+        const viewWidth = viewHeight * camera.aspect;
+        productSprites.forEach(({ sprite }, index) => {
+          const config = productSpriteConfigs[index];
+          const x = (config.anchor[0] - 0.5) * viewWidth - stage.position.x;
+          const y = (0.5 - config.anchor[1]) * viewHeight;
+          sprite.position.set(x, y, config.depth);
+          sprite.scale.set(config.scale, config.scale, 1);
+        });
+        productSprites.forEach(({ sprite }) => {
+          sprite.visible = true;
+        });
       }
       render();
     };
 
     const animate = () => {
       if (!reduceMotion) {
-        const elapsed = clock.getElapsedTime();
         rings.forEach((ring, index) => {
-          ring.position.y = ring.userData.baseY + Math.sin(elapsed * 0.8 + ring.userData.phase) * 0.1;
           ring.rotation.x += 0.0015 + index * 0.00015;
           ring.rotation.y += 0.002 + index * 0.00012;
         });
       }
-      stage.rotation.x += (targetRotation.x - stage.rotation.x) * 0.08;
-      stage.rotation.y += (targetRotation.y - stage.rotation.y) * 0.08;
       render();
       frame = window.requestAnimationFrame(animate);
     };
 
-    const onPointerDown = (event: PointerEvent) => {
-      dragging = true;
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-      renderer.domElement.setPointerCapture(event.pointerId);
-    };
-    const onPointerMove = (event: PointerEvent) => {
-      if (!dragging) return;
-      targetRotation.y += (event.clientX - pointerX) * 0.004;
-      targetRotation.x = THREE.MathUtils.clamp(targetRotation.x + (event.clientY - pointerY) * 0.003, -0.65, 0.65);
-      pointerX = event.clientX;
-      pointerY = event.clientY;
-    };
-    const onPointerUp = (event: PointerEvent) => {
-      dragging = false;
-      if (renderer.domElement.hasPointerCapture(event.pointerId)) renderer.domElement.releasePointerCapture(event.pointerId);
-    };
     const onMotionChange = (event: MediaQueryListEvent) => {
       reduceMotion = event.matches;
     };
 
-    renderer.domElement.addEventListener('pointerdown', onPointerDown);
-    renderer.domElement.addEventListener('pointermove', onPointerMove);
-    renderer.domElement.addEventListener('pointerup', onPointerUp);
-    renderer.domElement.addEventListener('pointercancel', onPointerUp);
     media.addEventListener('change', onMotionChange);
 
     const observer = new ResizeObserver(layout);
@@ -186,13 +198,14 @@ export default function Hero3D() {
       window.cancelAnimationFrame(frame);
       observer.disconnect();
       media.removeEventListener('change', onMotionChange);
-      renderer.domElement.removeEventListener('pointerdown', onPointerDown);
-      renderer.domElement.removeEventListener('pointermove', onPointerMove);
-      renderer.domElement.removeEventListener('pointerup', onPointerUp);
-      renderer.domElement.removeEventListener('pointercancel', onPointerUp);
       rings.forEach((ring) => {
         ring.geometry.dispose();
         (ring.material as THREE.Material).dispose();
+      });
+      productSprites.forEach(({ material, sprite, texture }) => {
+        stage.remove(sprite);
+        texture.dispose();
+        material.dispose();
       });
       floor.geometry.dispose();
       (floor.material as THREE.Material).dispose();
@@ -202,5 +215,5 @@ export default function Hero3D() {
     };
   }, []);
 
-  return <div ref={mountRef} data-webgl="pending" className="absolute inset-0 z-0 overflow-hidden bg-primary" aria-hidden="true" />;
+  return <div ref={mountRef} data-webgl="pending" className="pointer-events-none absolute inset-0 z-0 overflow-hidden bg-primary" aria-hidden="true" />;
 }

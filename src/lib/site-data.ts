@@ -185,6 +185,13 @@ export const materials: Material[] = [
   },
 ];
 
+export const homepageMaterials: Material[] = [
+  materials[1],
+  materials[0],
+  materials[2],
+  materials[3],
+];
+
 export const insights: Insight[] = [
   {
     slug: "choosing-o-ring-hardness",

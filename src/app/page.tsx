@@ -13,9 +13,9 @@ import {
 } from "@/components/site";
 import {
   insights,
+  homepageMaterials,
   manufacturingStats,
   materialComparison,
-  materials,
   trustMarks,
 } from "@/lib/site-data";
 
@@ -63,7 +63,7 @@ export default function Home() {
         </section>
 
         <Section tone="white">
-          <MaterialShowcase materials={materials.slice(0, 3)} />
+          <MaterialShowcase materials={homepageMaterials} />
         </Section>
 
         <Section tone="navy">
