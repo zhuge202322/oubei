@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 type RingConfig = {
   position: [number, number, number];
@@ -21,6 +22,16 @@ type ProductSpriteConfig = {
   src: string;
 };
 
+type ProductModelConfig = {
+  anchor: [number, number];
+  depth: number;
+  mobilePosition: [number, number, number];
+  rotation: [number, number, number];
+  scale: number;
+  src: string;
+  spriteIndex: number;
+};
+
 const ringConfigs: RingConfig[] = [
   { position: [0, -1.1, -0.5], rotation: [Math.PI / 2.2, 0, Math.PI / 4], color: 0x238653, roughness: 0.58 },
   { position: [0.5, 1.4, -1], rotation: [0.2, Math.PI / 4, Math.PI / 2], color: 0x2867a3, roughness: 0.32, metalness: 0.2, scale: 0.7, thickness: 0.12 },
@@ -29,7 +40,28 @@ const ringConfigs: RingConfig[] = [
 
 const productSpriteConfigs: ProductSpriteConfig[] = [
   { anchor: [0.2, 0.48], mobilePosition: [-1.85, 0.4, 0], depth: 0, scale: 3, src: '/hero-products/1.png' },
-  { anchor: [0.84, 0.5], mobilePosition: [1.8, 0.34, 0.5], depth: 0.5, scale: 3.6, src: '/hero-products/2.png' },
+  { anchor: [0.84, 0.5], mobilePosition: [1.45, 0.34, 0.5], depth: 0.5, scale: 3.6, src: '/hero-products/2.png' },
+];
+
+const productModelConfigs: ProductModelConfig[] = [
+  {
+    anchor: [0.2, 0.48],
+    mobilePosition: [-1.85, 0.4, 0],
+    depth: 0,
+    rotation: [Math.PI / 2, 0, 0],
+    scale: 2.32,
+    src: '/hero-products/01-web.glb',
+    spriteIndex: 0,
+  },
+  {
+    anchor: [0.84, 0.5],
+    mobilePosition: [1.45, 0.34, 0.5],
+    depth: 0.5,
+    rotation: [0, 0, 0],
+    scale: 2.24,
+    src: '/hero-products/02-web.glb',
+    spriteIndex: 1,
+  },
 ];
 
 export default function Hero3D() {
@@ -54,7 +86,7 @@ export default function Hero3D() {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.15;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.domElement.style.width = '100%';
     renderer.domElement.style.height = '100%';
     renderer.domElement.style.display = 'block';
@@ -101,6 +133,73 @@ export default function Hero3D() {
       sprite.scale.set(config.scale, config.scale, 1);
       stage.add(sprite);
       return { material, sprite, texture };
+    });
+
+    const productModels = productModelConfigs.map((config) => {
+      const group = new THREE.Group();
+      group.visible = false;
+      group.position.z = config.depth;
+      group.scale.setScalar(config.scale);
+      stage.add(group);
+      return { config, group, loaded: false };
+    });
+    let disposed = false;
+
+    const disposedTextures = new Set<THREE.Texture>();
+    const disposeMaterial = (material: THREE.Material) => {
+      for (const value of Object.values(material)) {
+        if (value instanceof THREE.Texture && !disposedTextures.has(value)) {
+          disposedTextures.add(value);
+          value.dispose();
+        }
+      }
+      material.dispose();
+    };
+    const disposeObject = (object: THREE.Object3D) => {
+      object.traverse((child) => {
+        if (!(child instanceof THREE.Mesh)) return;
+        child.geometry.dispose();
+        if (Array.isArray(child.material)) child.material.forEach(disposeMaterial);
+        else disposeMaterial(child.material);
+      });
+    };
+
+    const modelLoader = new GLTFLoader();
+    productModels.forEach((state) => {
+      modelLoader.load(
+        state.config.src,
+        (gltf) => {
+          if (disposed) {
+            disposeObject(gltf.scene);
+            return;
+          }
+          const bounds = new THREE.Box3().setFromObject(gltf.scene);
+          const center = bounds.getCenter(new THREE.Vector3());
+          const size = bounds.getSize(new THREE.Vector3());
+          const maxDimension = Math.max(size.x, size.y, size.z);
+          gltf.scene.position.sub(center);
+          if (maxDimension > 0) gltf.scene.scale.setScalar(1 / maxDimension);
+          gltf.scene.rotation.set(...state.config.rotation);
+          gltf.scene.traverse((object) => {
+            if (object instanceof THREE.Mesh) {
+              object.castShadow = true;
+              object.receiveShadow = true;
+            }
+          });
+          state.group.add(gltf.scene);
+          state.loaded = true;
+          state.group.visible = true;
+          productSprites[state.config.spriteIndex].sprite.visible = false;
+          layout();
+        },
+        undefined,
+        () => {
+          if (disposed) return;
+          state.loaded = false;
+          state.group.visible = false;
+          productSprites[state.config.spriteIndex].sprite.visible = true;
+        },
+      );
     });
 
     const floor = new THREE.Mesh(
@@ -151,7 +250,12 @@ export default function Hero3D() {
           const config = productSpriteConfigs[index];
           sprite.position.set(...config.mobilePosition);
           sprite.scale.set(config.scale, config.scale, 1);
-          sprite.visible = true;
+          sprite.visible = !productModels[index].loaded;
+        });
+        productModels.forEach(({ config, group, loaded }) => {
+          group.position.set(...config.mobilePosition);
+          group.scale.setScalar(config.scale);
+          group.visible = loaded;
         });
       } else {
         stage.position.set(0.85, 0, 0);
@@ -165,8 +269,15 @@ export default function Hero3D() {
           sprite.position.set(x, y, config.depth);
           sprite.scale.set(config.scale, config.scale, 1);
         });
-        productSprites.forEach(({ sprite }) => {
-          sprite.visible = true;
+        productSprites.forEach(({ sprite }, index) => {
+          sprite.visible = !productModels[index].loaded;
+        });
+        productModels.forEach(({ config, group, loaded }) => {
+          const modelX = (config.anchor[0] - 0.5) * viewWidth - stage.position.x;
+          const modelY = (0.5 - config.anchor[1]) * viewHeight;
+          group.position.set(modelX, modelY, config.depth);
+          group.scale.setScalar(config.scale);
+          group.visible = loaded;
         });
       }
       render();
@@ -177,6 +288,9 @@ export default function Hero3D() {
         rings.forEach((ring, index) => {
           ring.rotation.x += 0.0015 + index * 0.00015;
           ring.rotation.y += 0.002 + index * 0.00012;
+        });
+        productModels.forEach(({ group }) => {
+          if (group.visible) group.rotation.y += 0.0012;
         });
       }
       render();
@@ -195,6 +309,7 @@ export default function Hero3D() {
     animate();
 
     return () => {
+      disposed = true;
       window.cancelAnimationFrame(frame);
       observer.disconnect();
       media.removeEventListener('change', onMotionChange);
@@ -202,10 +317,13 @@ export default function Hero3D() {
         ring.geometry.dispose();
         (ring.material as THREE.Material).dispose();
       });
-      productSprites.forEach(({ material, sprite, texture }) => {
+      productSprites.forEach(({ material, sprite }) => {
         stage.remove(sprite);
-        texture.dispose();
-        material.dispose();
+        disposeMaterial(material);
+      });
+      productModels.forEach(({ group }) => {
+        disposeObject(group);
+        stage.remove(group);
       });
       floor.geometry.dispose();
       (floor.material as THREE.Material).dispose();
