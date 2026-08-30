@@ -36,7 +36,7 @@ export function jsonOk<T>(data: T, init?: ResponseInit) {
 }
 
 export function jsonError(error: unknown) {
-  const status = error instanceof AdminAuthError || error instanceof AdminRequestError ? error.status : 500;
-  const message = error instanceof AdminAuthError ? error.message : error instanceof AdminRequestError ? error.message : "Unexpected server error";
+  const status = error instanceof AdminAuthError || error instanceof AdminRequestError ? error.status : error instanceof SyntaxError ? 400 : 500;
+  const message = error instanceof AdminAuthError ? error.message : error instanceof AdminRequestError ? error.message : error instanceof SyntaxError ? "Invalid JSON body" : "Unexpected server error";
   return Response.json({ data: null, error: message }, { status });
 }

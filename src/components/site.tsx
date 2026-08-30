@@ -22,7 +22,7 @@ import {
   Truck,
   X,
 } from "lucide-react";
-import { useState, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from "react";
+import { useEffect, useState, type ButtonHTMLAttributes, type HTMLAttributes, type ReactNode } from "react";
 import {
   companyContact,
   footerColumns,
@@ -258,6 +258,7 @@ type HeaderProps = {
 };
 
 export function Header({ items = navItems, activePath, className, compact = false }: HeaderProps) {
+  const publicSettings = usePublicSettings();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const currentPath = activePath ?? pathname;
@@ -272,8 +273,8 @@ export function Header({ items = navItems, activePath, className, compact = fals
       <Container className={cx("flex items-center justify-between gap-4", compact ? "py-3" : "py-4")}>
         <Link href="/" className="group flex min-w-0 items-center" onClick={() => setOpen(false)}>
           <Image
-            src="/logo.webp"
-            alt="Xingtai Oubei"
+            src={publicSettings.logoPath}
+            alt={publicSettings.siteName}
             width={302}
             height={90}
             priority
@@ -359,11 +360,20 @@ export function Header({ items = navItems, activePath, className, compact = fals
 
 export const SiteHeader = Header;
 
+type PublicSettings = { siteName: string; logoPath: string; contact: typeof companyContact };
+function usePublicSettings() {
+  const [settings, setSettings] = useState<PublicSettings>({ siteName: companyContact.shortName, logoPath: "/logo.webp", contact: companyContact });
+  useEffect(() => { fetch("/api/site/content").then((response) => response.json()).then((payload: { data?: { settings?: PublicSettings } }) => { if (payload.data?.settings) setSettings(payload.data.settings); }).catch(() => undefined); }, []);
+  return settings;
+}
+
 type FooterProps = {
   className?: string;
 };
 
 export function Footer({ className }: FooterProps) {
+  const publicSettings = usePublicSettings();
+  const contact = publicSettings.contact;
   return (
     <footer className={cx("border-t border-border bg-surface-highest", className)}>
       <Container className="py-14 lg:py-20">
@@ -371,8 +381,8 @@ export function Footer({ className }: FooterProps) {
           <div className="max-w-sm">
             <Link href="/" className="inline-flex items-center text-primary">
               <Image
-                src="/logo.webp"
-                alt="Xingtai Oubei"
+                src={publicSettings.logoPath}
+                alt={publicSettings.siteName}
                 width={302}
                 height={90}
                 className="h-11 w-auto object-contain"
@@ -408,25 +418,25 @@ export function Footer({ className }: FooterProps) {
             <p className="font-semibold text-primary">Contact engineering sales</p>
             <p className="mt-1">Send drawings, compound requirements, or target volumes for a fast recommendation.</p>
           </div>
-          <a href={`mailto:${companyContact.email}`} className="flex items-start gap-3 text-sm text-muted transition-colors hover:text-primary">
+          <a href={`mailto:${contact.email}`} className="flex items-start gap-3 text-sm text-muted transition-colors hover:text-primary">
             <Mail aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-            <span>{companyContact.email}</span>
+            <span>{contact.email}</span>
           </a>
           <div className="space-y-2 text-sm text-muted">
-            <a href={`tel:${companyContact.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 transition-colors hover:text-primary">
+            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 transition-colors hover:text-primary">
               <Phone aria-hidden="true" className="h-4 w-4 shrink-0 text-primary" />
-              <span>{companyContact.phone}</span>
+              <span>{contact.phone}</span>
             </a>
             <div className="flex items-start gap-3">
               <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-              <span>{companyContact.address}</span>
+              <span>{contact.address}</span>
             </div>
           </div>
         </div>
       </Container>
       <div className="border-t border-border bg-surface-highest/70">
         <Container className="flex flex-col gap-2 py-5 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} {companyContact.name} All rights reserved.</span>
+          <span>© {new Date().getFullYear()} {contact.name} All rights reserved.</span>
           <span className="font-mono uppercase tracking-[0.12em]">Built for reliable sealing</span>
         </Container>
       </div>

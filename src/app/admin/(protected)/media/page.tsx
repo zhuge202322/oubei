@@ -1,0 +1,2 @@
+import { getResolvedSiteContent } from "@/lib/server/content"; import { openDatabase } from "@/lib/server/db"; import MediaClient from "./media-client";
+export default async function MediaPage(){const db=openDatabase();const content=await getResolvedSiteContent(db);db.close();return <MediaClient slots={Object.values(content.mediaSlots).map(s=>({slotKey:s.slotKey,label:s.label,pageKey:s.pageKey,alt:s.alt,url:s.url,defaultPath:s.defaultPath,mediaFileId:s.mediaFileId}))}/>}

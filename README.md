@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Oubei admin and VPS deployment
+
+The site includes a single-administrator SQLite CMS. Runtime state is kept outside the repository: `${OUBEI_DATA_DIR}/site.db` and `${OUBEI_DATA_DIR}/media/` (default `.oubei-data` in development). Copy `.env.example` to `.env` and set a random `SESSION_SECRET` (32+ characters) and initial password before the first production start.
+
+Build and run with `npm ci && npm run build && npm run start`. Put a reverse proxy (Nginx/Caddy) in front of the Node process and persist the data directory on the VPS. Uploaded files are served by `/media/<storage-name>`.
+
+Back up both database and media together: `OUBEI_DATA_DIR=/var/lib/oubei ./scripts/backup-oubei.sh /var/backups/oubei`. On Windows run `./scripts/backup-oubei.ps1 -DataDir C:\ProgramData\oubei`. To restore, stop the service, replace `site.db` and `media/` from one timestamped backup, then start the service again. Never commit `.env`, `.oubei-data`, SQLite files, or `.next` output.
+
 ## Getting Started
 
 First, run the development server:
