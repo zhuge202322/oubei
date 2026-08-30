@@ -3,6 +3,7 @@ import path from "node:path";
 import Database from "better-sqlite3";
 import { getRuntimeConfig } from "@/lib/server/config";
 import { migrateDatabase } from "@/lib/server/migrations";
+import { seedDatabase } from "@/lib/server/seed";
 
 export type DatabaseConnection = Database.Database;
 
@@ -14,6 +15,7 @@ export function openDatabase(databasePath?: string): DatabaseConnection {
   db.pragma("journal_mode = WAL");
   db.pragma("busy_timeout = 5000");
   migrateDatabase(db);
+  seedDatabase(db);
   return db;
 }
 

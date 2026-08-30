@@ -16,7 +16,7 @@ const DEFAULT_UPLOAD_BYTES = 10 * 1024 * 1024;
 
 export function getRuntimeConfig(environment: RuntimeEnvironment = process.env): RuntimeConfig {
   const dataDir = path.resolve(environment.OUBEI_DATA_DIR || path.join(process.cwd(), ".oubei-data"));
-  const sessionSecret = environment.SESSION_SECRET || "";
+  const sessionSecret = environment.SESSION_SECRET || (environment.NODE_ENV === "production" ? "" : "oubei-development-secret-change-this-value");
   const maxUploadBytes = Number(environment.MAX_UPLOAD_BYTES || DEFAULT_UPLOAD_BYTES);
 
   if (sessionSecret.length < 32) {
