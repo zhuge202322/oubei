@@ -9,7 +9,7 @@ import {
   SlidersHorizontal,
   Verified,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Button,
   Breadcrumbs,
@@ -126,6 +126,7 @@ function matchesSelection(product: CatalogProduct, selectedMaterials: string[], 
 }
 
 export default function ProductsPage() {
+  const [resolvedCatalog, setResolvedCatalog] = useState<CatalogProduct[]>(catalogProducts);
   const [selectedMaterials, setSelectedMaterials] = useState<string[]>([]);
   const [selectedHardness, setSelectedHardness] = useState<string[]>([]);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
@@ -133,14 +134,23 @@ export default function ProductsPage() {
   const [page, setPage] = useState(1);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
+  // Keep the catalog usable with code defaults while applying admin changes when available.
+  useEffect(() => {
+    fetch("/api/site/content").then((response) => response.json()).then((payload: { data?: { products?: Array<{ slug: string; name: string; shortDescription: string; image: string; alt: string; material: string; applications: string[] }> } }) => {
+      const products = payload.data?.products;
+      if (!products?.length) return;
+      setResolvedCatalog(products.map((product) => ({ id: product.slug, name: product.name, description: product.shortDescription, image: product.image, alt: product.alt, material: product.material.split(/[,/]/).map((value) => value.trim()).filter(Boolean), hardness: [], colors: [], label: product.applications[0] || "Catalog", href: `/products/${product.slug}` })));
+    }).catch(() => undefined);
+  }, []);
+
   const visibleProducts = useMemo(() => {
-    const filtered = catalogProducts.filter((product) => matchesSelection(product, selectedMaterials, selectedHardness, selectedColor));
+    const filtered = resolvedCatalog.filter((product) => matchesSelection(product, selectedMaterials, selectedHardness, selectedColor));
     return [...filtered].sort((a, b) => {
       if (sortBy === "name") return a.name.localeCompare(b.name);
       if (sortBy === "material") return a.material[0].localeCompare(b.material[0]);
       return 0;
     });
-  }, [selectedColor, selectedHardness, selectedMaterials, sortBy]);
+  }, [resolvedCatalog, selectedColor, selectedHardness, selectedMaterials, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(visibleProducts.length / productsPerPage));
   const currentPage = Math.min(Math.max(page, 1), totalPages);
