@@ -57,6 +57,14 @@ export type FooterColumn = {
   links: Array<{ label: string; href: string }>;
 };
 
+export type MediaSlotDefault = {
+  slotKey: string;
+  pageKey: string;
+  label: string;
+  defaultPath: string;
+  alt: string;
+};
+
 export const navItems: NavItem[] = [
   { label: "Products", href: "/products" },
   { label: "Solutions", href: "/materials" },
@@ -292,6 +300,57 @@ export const companyContact = {
   email: "sales@xingtaioubei.com",
   hours: "Mon-Fri, 08:30-17:30 (CST)",
 };
+
+export const defaultMediaSlots: MediaSlotDefault[] = [
+  { slotKey: "home.hero.left", pageKey: "home", label: "Hero left product", defaultPath: "/hero-products/1.png", alt: "Green rubber sealing ring" },
+  { slotKey: "home.hero.right", pageKey: "home", label: "Hero right product", defaultPath: "/hero-products/2.png", alt: "Brown rotary sealing ring" },
+  { slotKey: "home.factory.workshop", pageKey: "home", label: "Factory workshop", defaultPath: "/factory/车间1.jpg", alt: "Oubei rubber molding workshop" },
+  { slotKey: "home.factory.lab", pageKey: "home", label: "Factory laboratory", defaultPath: "/factory/实验室.jpg", alt: "Material testing laboratory" },
+  { slotKey: "home.factory.warehouse", pageKey: "home", label: "Factory warehouse", defaultPath: "/factory/成品仓.jpg", alt: "Finished goods warehouse" },
+  { slotKey: "home.insight.hardness", pageKey: "home", label: "Insight: O-ring hardness", defaultPath: "/stitch/home-08.jpg", alt: "Technician reviewing seal test results in the quality laboratory" },
+  { slotKey: "home.insight.renewable", pageKey: "home", label: "Insight: renewable energy", defaultPath: "/stitch/home-09.jpg", alt: "Industrial facility prepared for long-life component production" },
+  { slotKey: "home.insight.shipping", pageKey: "home", label: "Insight: shipping update", defaultPath: "/stitch/home-10.jpg", alt: "Finished product warehouse with organized dispatch inventory" },
+  { slotKey: "products.o-rings", pageKey: "products", label: "O-rings product image", defaultPath: "/stitch/products-05.jpg", alt: "Precision rubber components in a production workshop" },
+  { slotKey: "products.oil-seals", pageKey: "products", label: "Oil seals product image", defaultPath: "/stitch/products-01.jpg", alt: "Organized oil seal inventory in a manufacturing warehouse" },
+  { slotKey: "products.hydraulic-seals", pageKey: "products", label: "Hydraulic seals product image", defaultPath: "/stitch/products-06.jpg", alt: "Finished sealing products prepared for shipment" },
+  { slotKey: "products.custom-molded-parts", pageKey: "products", label: "Custom molded parts image", defaultPath: "/stitch/products-04.jpg", alt: "Rubber product testing equipment in the quality laboratory" },
+  { slotKey: "products.detail.fkm.1", pageKey: "products-detail", label: "FKM detail image 1", defaultPath: "/stitch/product-detail-06.jpg", alt: "FKM rubber seal detail" },
+  { slotKey: "products.detail.fkm.2", pageKey: "products-detail", label: "FKM detail image 2", defaultPath: "/stitch/product-detail-07.jpg", alt: "FKM rubber seal profile" },
+  { slotKey: "products.detail.fkm.3", pageKey: "products-detail", label: "FKM detail image 3", defaultPath: "/stitch/product-detail-08.jpg", alt: "FKM rubber seal application" },
+  { slotKey: "products.detail.fkm.4", pageKey: "products-detail", label: "FKM detail image 4", defaultPath: "/stitch/product-detail-09.jpg", alt: "FKM rubber seal surface" },
+  { slotKey: "materials.fkm", pageKey: "materials", label: "FKM material image", defaultPath: "/stitch/products-05.jpg", alt: "FKM material sample" },
+  { slotKey: "materials.nbr", pageKey: "materials", label: "NBR material image", defaultPath: "/stitch/product-detail-01.jpg", alt: "NBR material sample" },
+  { slotKey: "materials.vmq", pageKey: "materials", label: "VMQ material image", defaultPath: "/stitch/product-detail-06.jpg", alt: "VMQ material sample" },
+  { slotKey: "materials.epdm", pageKey: "materials", label: "EPDM material image", defaultPath: "/stitch/product-detail-09.jpg", alt: "EPDM material sample" },
+  { slotKey: "about.gate", pageKey: "about", label: "Facility entrance", defaultPath: "/factory/新公司大门图片.png", alt: "Oubei manufacturing facility entrance" },
+  { slotKey: "about.quality.1", pageKey: "about", label: "Quality badge 1", defaultPath: "/stitch/about-02.jpg", alt: "ISO 9001 quality system" },
+  { slotKey: "about.quality.2", pageKey: "about", label: "Quality badge 2", defaultPath: "/stitch/about-03.jpg", alt: "SGS quality verification" },
+  { slotKey: "about.quality.3", pageKey: "about", label: "Quality badge 3", defaultPath: "/stitch/about-04.jpg", alt: "RoHS compliance" },
+  { slotKey: "about.quality.4", pageKey: "about", label: "Quality badge 4", defaultPath: "/stitch/about-05.jpg", alt: "Automotive quality controls" },
+  { slotKey: "about.quality.5", pageKey: "about", label: "Quality badge 5", defaultPath: "/stitch/about-06.jpg", alt: "International audit readiness" },
+  { slotKey: "about.certificate.1", pageKey: "about", label: "Certificate 1", defaultPath: "/certificates/1.png", alt: "Oubei certificate 1" },
+  { slotKey: "about.certificate.2", pageKey: "about", label: "Certificate 2", defaultPath: "/certificates/2.png", alt: "Oubei certificate 2" },
+  { slotKey: "about.certificate.3", pageKey: "about", label: "Certificate 3", defaultPath: "/certificates/3.png", alt: "Oubei certificate 3" },
+  { slotKey: "about.history.factory", pageKey: "about", label: "History factory image", defaultPath: "/stitch/about-08.jpg", alt: "Oubei factory history" },
+  { slotKey: "about.history.warehouse", pageKey: "about", label: "History warehouse image", defaultPath: "/stitch/about-09.jpg", alt: "Organized export warehouse" },
+  { slotKey: "about.history.team", pageKey: "about", label: "History team image", defaultPath: "/stitch/about-10.jpg", alt: "Oubei team at work" },
+  { slotKey: "about.capability", pageKey: "about", label: "Capability image", defaultPath: "/stitch/about-07.jpg", alt: "Oubei manufacturing capability" },
+  { slotKey: "about.team.1", pageKey: "about", label: "Team member 1", defaultPath: "/stitch/about-14.jpg", alt: "Oubei engineering team member" },
+  { slotKey: "about.team.2", pageKey: "about", label: "Team member 2", defaultPath: "/stitch/about-15.jpg", alt: "Oubei engineering team member" },
+  { slotKey: "about.team.3", pageKey: "about", label: "Team member 3", defaultPath: "/stitch/about-16.jpg", alt: "Oubei engineering team member" },
+  { slotKey: "about.team.4", pageKey: "about", label: "Team member 4", defaultPath: "/stitch/about-17.jpg", alt: "Senior materials engineer" },
+  { slotKey: "custom.hero", pageKey: "custom", label: "Custom solutions hero", defaultPath: "/stitch/custom-01.jpg", alt: "Custom rubber molding solution" },
+  { slotKey: "custom.study.1", pageKey: "custom", label: "Custom case study 1", defaultPath: "/stitch/custom-02.jpg", alt: "Custom molding case study" },
+  { slotKey: "custom.study.2", pageKey: "custom", label: "Custom case study 2", defaultPath: "/stitch/custom-03.jpg", alt: "Custom sealing case study" },
+  { slotKey: "resources.hero", pageKey: "resources", label: "Resources hero", defaultPath: "/stitch/resources-01.jpg", alt: "Oubei technical resources" },
+  { slotKey: "resources.2", pageKey: "resources", label: "Resource image 2", defaultPath: "/stitch/resources-02.jpg", alt: "Oubei resource illustration" },
+  { slotKey: "resources.3", pageKey: "resources", label: "Resource image 3", defaultPath: "/stitch/resources-03.jpg", alt: "Oubei resource illustration" },
+  { slotKey: "resources.4", pageKey: "resources", label: "Resource image 4", defaultPath: "/stitch/resources-04.jpg", alt: "Oubei resource illustration" },
+  { slotKey: "resources.5", pageKey: "resources", label: "Resource image 5", defaultPath: "/stitch/resources-05.jpg", alt: "Oubei resource illustration" },
+  { slotKey: "resources.6", pageKey: "resources", label: "Resource image 6", defaultPath: "/stitch/resources-06.jpg", alt: "Oubei resource illustration" },
+  { slotKey: "resources.7", pageKey: "resources", label: "Resource image 7", defaultPath: "/stitch/resources-07.jpg", alt: "Oubei resource illustration" },
+  { slotKey: "resources.article.hero", pageKey: "resources-detail", label: "Technical article image", defaultPath: "/stitch/article-01.jpg", alt: "O-rings in several compounds on a laboratory workbench" },
+];
 
 // Friendly aliases used by route components and older catalog prototypes.
 export const productData = products;
