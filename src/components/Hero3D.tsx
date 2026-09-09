@@ -13,23 +13,12 @@ type RingConfig = {
   thickness?: number;
 };
 
-type ProductSpriteConfig = {
-  anchor: [number, number];
-  depth: number;
-  mobilePosition: [number, number, number];
-  scale: number;
-  src: string;
-};
-
 const ringConfigs: RingConfig[] = [
   { position: [0, -1.1, -0.5], rotation: [Math.PI / 2.2, 0, Math.PI / 4], color: 0x238653, roughness: 0.58 },
   { position: [0.5, 1.4, -1], rotation: [0.2, Math.PI / 4, Math.PI / 2], color: 0x2867a3, roughness: 0.32, metalness: 0.2, scale: 0.7, thickness: 0.12 },
   { position: [0.5, 1.4, -0.8], rotation: [-0.1, -Math.PI / 4, -Math.PI / 2.2], color: 0xc62828, roughness: 0.5, scale: 0.8, thickness: 0.07 },
-];
-
-const productSpriteConfigs: ProductSpriteConfig[] = [
-  { anchor: [0.2, 0.48], mobilePosition: [-1.85, 0.4, 0], depth: 0, scale: 3, src: '/hero-products/1.png' },
-  { anchor: [0.84, 0.5], mobilePosition: [1.45, 0.34, 0.5], depth: 0.5, scale: 3.6, src: '/hero-products/2.png' },
+  { position: [1.45, 0.35, -1.2], rotation: [0.8, -0.55, 0.35], color: 0xd4a72c, roughness: 0.38, metalness: 0.14, scale: 0.58, thickness: 0.1 },
+  { position: [-0.85, 1.65, -1.35], rotation: [1.15, 0.35, -0.75], color: 0x7b61a8, roughness: 0.46, scale: 0.62, thickness: 0.1 },
 ];
 
 export default function Hero3D() {
@@ -87,32 +76,6 @@ export default function Hero3D() {
       return mesh;
     });
 
-    const textureLoader = new THREE.TextureLoader();
-    const productSprites = productSpriteConfigs.map((config) => {
-      const texture = textureLoader.load(config.src);
-      texture.colorSpace = THREE.SRGBColorSpace;
-      const material = new THREE.SpriteMaterial({
-        map: texture,
-        transparent: true,
-        depthWrite: false,
-      });
-      const sprite = new THREE.Sprite(material);
-      sprite.position.z = config.depth;
-      sprite.scale.set(config.scale, config.scale, 1);
-      stage.add(sprite);
-      return { material, sprite, texture };
-    });
-
-    const disposedTextures = new Set<THREE.Texture>();
-    const disposeMaterial = (material: THREE.Material) => {
-      for (const value of Object.values(material)) {
-        if (value instanceof THREE.Texture && !disposedTextures.has(value)) {
-          disposedTextures.add(value);
-          value.dispose();
-        }
-      }
-      material.dispose();
-    };
     const floor = new THREE.Mesh(
       new THREE.PlaneGeometry(12, 8),
       new THREE.ShadowMaterial({ color: 0x000914, opacity: 0.24 }),
@@ -157,27 +120,9 @@ export default function Hero3D() {
         const mobileScale = THREE.MathUtils.clamp(width / 900, 0.48, 0.7);
         stage.position.set(0, 0.58, 0);
         stage.scale.setScalar(mobileScale);
-        productSprites.forEach(({ sprite }, index) => {
-          const config = productSpriteConfigs[index];
-          sprite.position.set(...config.mobilePosition);
-          sprite.scale.set(config.scale, config.scale, 1);
-          sprite.visible = true;
-        });
       } else {
         stage.position.set(0.85, 0, 0);
         stage.scale.setScalar(1);
-        const viewHeight = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.position.z;
-        const viewWidth = viewHeight * camera.aspect;
-        productSprites.forEach(({ sprite }, index) => {
-          const config = productSpriteConfigs[index];
-          const x = (config.anchor[0] - 0.5) * viewWidth - stage.position.x;
-          const y = (0.5 - config.anchor[1]) * viewHeight;
-          sprite.position.set(x, y, config.depth);
-          sprite.scale.set(config.scale, config.scale, 1);
-        });
-        productSprites.forEach(({ sprite }) => {
-          sprite.visible = true;
-        });
       }
       render();
     };
@@ -211,10 +156,6 @@ export default function Hero3D() {
       rings.forEach((ring) => {
         ring.geometry.dispose();
         (ring.material as THREE.Material).dispose();
-      });
-      productSprites.forEach(({ material, sprite }) => {
-        stage.remove(sprite);
-        disposeMaterial(material);
       });
       floor.geometry.dispose();
       (floor.material as THREE.Material).dispose();
