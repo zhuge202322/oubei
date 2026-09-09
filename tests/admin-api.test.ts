@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import Database from "better-sqlite3";
 import { migrateDatabase } from "@/lib/server/migrations";
 import { ensureAdminUser, createSession } from "@/lib/server/auth";
-import { requireAdmin } from "@/lib/server/admin-api";
+import { AdminRequestError, assertSameOrigin, requireAdmin } from "@/lib/server/admin-api";
 import { POST as login } from "@/app/api/admin/auth/login/route";
 import { createTemporaryDataDirectory } from "@/lib/server/test-helpers";
 
@@ -24,6 +24,44 @@ test("requireAdmin returns the administrator for a valid session", async () => {
   const context = await requireAdmin(new Request("http://localhost/api/admin/products", { headers: { cookie: `oubei_admin_session=${token}` } }), db);
   assert.equal(context.user.username, "admin");
   db.close();
+});
+
+test("assertSameOrigin accepts a direct same-origin request", () => {
+  const request = new Request("https://htob-ffkm.com/api/admin/settings", {
+    method: "PATCH",
+    headers: { origin: "https://htob-ffkm.com" },
+  });
+
+  assert.doesNotThrow(() => assertSameOrigin(request));
+});
+
+test("assertSameOrigin accepts the public HTTPS origin behind a reverse proxy", () => {
+  const request = new Request("http://127.0.0.1:4100/api/admin/settings", {
+    method: "PATCH",
+    headers: {
+      host: "www.htob-ffkm.com",
+      origin: "https://www.htob-ffkm.com",
+      "x-forwarded-proto": "https",
+    },
+  });
+
+  assert.doesNotThrow(() => assertSameOrigin(request));
+});
+
+test("assertSameOrigin rejects a different origin behind a reverse proxy", () => {
+  const request = new Request("http://127.0.0.1:4100/api/admin/settings", {
+    method: "PATCH",
+    headers: {
+      host: "www.htob-ffkm.com",
+      origin: "https://example.com",
+      "x-forwarded-proto": "https",
+    },
+  });
+
+  assert.throws(
+    () => assertSameOrigin(request),
+    (error: unknown) => error instanceof AdminRequestError && error.status === 403,
+  );
 });
 
 test("login route sets an HttpOnly session cookie for valid initial credentials", async () => {

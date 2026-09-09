@@ -45,7 +45,37 @@ export function deleteCategory(db: DatabaseConnection, id: number) {
   const result = db.prepare("delete from categories where id = ?").run(id); if (!result.changes) throw new AdminRequestError(404, "Category not found");
 }
 
-export function listProducts(db: DatabaseConnection) { return db.prepare("select p.id, p.slug, p.name, p.code, p.category_id as categoryId, c.name as categoryName, p.short_description as shortDescription, p.description, p.material, p.applications_json as applicationsJson, p.specs_json as specsJson, p.image_default_path as imageDefaultPath, p.is_active as isActive from products p left join categories c on c.id = p.category_id order by p.id").all().map((row) => { const item = row as Record<string, unknown>; return { ...item, applications: JSON.parse(String(item.applicationsJson || "[]")), specs: JSON.parse(String(item.specsJson || "[]")), isActive: Boolean(item.isActive) }; }); }
+export function listProducts(db: DatabaseConnection) {
+  const products = db.prepare(
+    "select p.id, p.slug, p.name, p.code, p.category_id as categoryId, c.name as categoryName, p.short_description as shortDescription, p.description, p.material, p.applications_json as applicationsJson, p.specs_json as specsJson, p.image_default_path as imageDefaultPath, p.is_active as isActive from products p left join categories c on c.id = p.category_id order by p.id",
+  ).all() as Array<Record<string, unknown>>;
+  const images = db.prepare(
+    "select pi.id, pi.product_id as productId, pi.default_path as defaultPath, pi.alt, pi.sort_order as sortOrder, mf.storage_name as storageName from product_images pi left join media_files mf on mf.id = pi.media_file_id order by pi.product_id, pi.sort_order, pi.id",
+  ).all() as Array<Record<string, unknown>>;
+  const galleryByProduct = new Map<number, Array<{ id: number; url: string; alt: string; sortOrder: number }>>();
+
+  images.forEach((image) => {
+    const productId = Number(image.productId);
+    const storageName = typeof image.storageName === "string" ? image.storageName : "";
+    const defaultPath = typeof image.defaultPath === "string" ? image.defaultPath : "";
+    const gallery = galleryByProduct.get(productId) || [];
+    gallery.push({
+      id: Number(image.id),
+      url: storageName ? `/api/media/${encodeURIComponent(storageName)}` : defaultPath,
+      alt: String(image.alt || ""),
+      sortOrder: Number(image.sortOrder),
+    });
+    galleryByProduct.set(productId, gallery);
+  });
+
+  return products.map((item) => ({
+    ...item,
+    applications: JSON.parse(String(item.applicationsJson || "[]")),
+    specs: JSON.parse(String(item.specsJson || "[]")),
+    isActive: Boolean(item.isActive),
+    gallery: galleryByProduct.get(Number(item.id)) || [],
+  }));
+}
 export function createProduct(db: DatabaseConnection, raw: Record<string, unknown>) { const input = normalizeProductInput(raw); ensureUnique(db, "products", input.slug); if (input.categoryId !== null && !db.prepare("select id from categories where id = ?").get(input.categoryId)) throw new AdminRequestError(400, "Category not found"); const now = timestamp(); const result = db.prepare("insert into products (slug,name,code,category_id,short_description,description,material,applications_json,specs_json,image_default_path,is_active,created_at,updated_at) values (?,?,?,?,?,?,?,?,?,?,?, ?, ?)").run(input.slug,input.name,input.code,input.categoryId,input.shortDescription,input.description,input.material,JSON.stringify(input.applications),JSON.stringify(input.specs),input.imageDefaultPath,input.isActive ? 1 : 0,now,now); return Number(result.lastInsertRowid); }
 export function updateProduct(db: DatabaseConnection, id: number, raw: Record<string, unknown>) { const input = normalizeProductInput(raw); if (!db.prepare("select id from products where id = ?").get(id)) throw new AdminRequestError(404, "Product not found"); ensureUnique(db, "products", input.slug, id); if (input.categoryId !== null && !db.prepare("select id from categories where id = ?").get(input.categoryId)) throw new AdminRequestError(400, "Category not found"); const now = timestamp(); db.prepare("update products set slug=?,name=?,code=?,category_id=?,short_description=?,description=?,material=?,applications_json=?,specs_json=?,image_default_path=?,is_active=?,updated_at=? where id=?").run(input.slug,input.name,input.code,input.categoryId,input.shortDescription,input.description,input.material,JSON.stringify(input.applications),JSON.stringify(input.specs),input.imageDefaultPath,input.isActive ? 1 : 0,now,id); return id; }
 export function deleteProduct(db: DatabaseConnection, id: number) { const result = db.prepare("delete from products where id = ?").run(id); if (!result.changes) throw new AdminRequestError(404, "Product not found"); }

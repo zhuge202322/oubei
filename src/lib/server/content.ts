@@ -84,7 +84,7 @@ function readSettings(db: DatabaseConnection) {
 function resolveFileUrl(mediaFileId: number | null, fallback: string, db: DatabaseConnection) {
   if (!mediaFileId) return fallback;
   const file = db.prepare("select storage_name from media_files where id = ?").get(mediaFileId) as { storage_name: string } | undefined;
-  return file ? `/media/${encodeURIComponent(file.storage_name)}` : fallback;
+  return file ? `/api/media/${encodeURIComponent(file.storage_name)}` : fallback;
 }
 
 function readProducts(db: DatabaseConnection): ResolvedProduct[] {

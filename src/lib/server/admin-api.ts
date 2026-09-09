@@ -28,7 +28,10 @@ export function assertSameOrigin(request: Request) {
   const origin = request.headers.get("origin");
   if (!origin) return;
   const url = new URL(request.url);
-  if (origin !== `${url.protocol}//${url.host}`) throw new AdminRequestError(403, "Invalid request origin");
+  const forwardedProtocol = request.headers.get("x-forwarded-proto")?.split(",", 1)[0]?.trim();
+  const protocol = forwardedProtocol ? `${forwardedProtocol}:` : url.protocol;
+  const host = request.headers.get("host")?.trim() || url.host;
+  if (origin !== `${protocol}//${host}`) throw new AdminRequestError(403, "Invalid request origin");
 }
 
 export function jsonOk<T>(data: T, init?: ResponseInit) {
