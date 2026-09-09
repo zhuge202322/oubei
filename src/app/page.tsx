@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { createPageMetadata, PUBLIC_PAGE_SEO } from "@/lib/seo";
 import { ArrowRight, BadgeCheck, Download } from "lucide-react";
 import Hero3D from "@/components/Hero3D";
 import MaterialShowcase from "@/components/MaterialShowcase";
@@ -18,6 +19,8 @@ import {
   materialComparison,
   trustMarks,
 } from "@/lib/site-data";
+
+export const metadata = createPageMetadata(PUBLIC_PAGE_SEO.home);
 
 export default function Home() {
   return (

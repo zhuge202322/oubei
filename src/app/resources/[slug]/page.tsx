@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { Breadcrumbs, Button, Container, Footer, Header } from "@/components/site";
 import { insights } from "@/lib/site-data";
+import { createResourceMetadata } from "@/lib/seo";
 
 const genericInsights = insights.filter((insight) => insight.slug !== "choosing-o-ring-hardness");
 
@@ -14,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const insight = genericInsights.find((item) => item.slug === slug);
-  return insight ? { title: insight.title, description: insight.excerpt } : {};
+  return insight ? createResourceMetadata(insight) : {};
 }
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {

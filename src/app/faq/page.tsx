@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata, PUBLIC_PAGE_SEO } from "@/lib/seo";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -17,11 +18,7 @@ import {
 } from "@/components/site";
 import { companyContact } from "@/lib/site-data";
 
-export const metadata: Metadata = {
-  title: "Frequently asked questions",
-  description:
-    "Answers about Xingtai Oubei manufacturing, R&D, packaging, delivery, quality control, and rubber material capabilities.",
-};
+export const metadata: Metadata = createPageMetadata(PUBLIC_PAGE_SEO.faq);
 
 const faqGroups = [
   {

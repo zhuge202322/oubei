@@ -21,6 +21,7 @@ export type ResolvedMediaSlot = {
 export type ResolvedProduct = (typeof defaultProducts)[number] & {
   id: number;
   isActive: boolean;
+  updatedAt: string;
   gallery: Array<{ id: number; url: string; alt: string; sortOrder: number }>;
 };
 
@@ -44,6 +45,7 @@ type ProductRow = {
   specs_json: string;
   image_default_path: string | null;
   is_active: number;
+  updated_at: string;
 };
 
 function readJsonArray(value: string) {
@@ -119,6 +121,7 @@ function readProducts(db: DatabaseConnection): ResolvedProduct[] {
       material: row.material,
       id: row.id,
       isActive: Boolean(row.is_active),
+      updatedAt: row.updated_at,
       gallery,
     };
   });

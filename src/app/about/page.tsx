@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { createPageMetadata, PUBLIC_PAGE_SEO } from "@/lib/seo";
 import {
   ArrowRight,
   CheckCircle2,
@@ -135,6 +136,8 @@ const globalStats = [
   ["R&D", "Dedicated technical team"],
   ["Global", "Customer support"],
 ] as const;
+
+export const metadata = createPageMetadata(PUBLIC_PAGE_SEO.about);
 
 export default function AboutPage() {
   return (

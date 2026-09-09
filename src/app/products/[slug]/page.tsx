@@ -1,11 +1,24 @@
 import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs, Container, Footer, Header } from "@/components/site";
 import { getResolvedProductBySlug } from "@/lib/server/content";
 import { openDatabase } from "@/lib/server/db";
+import { createProductMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const db = openDatabase();
+  try {
+    const product = await getResolvedProductBySlug(db, slug);
+    return product ? createProductMetadata(product) : {};
+  } finally {
+    db.close();
+  }
+}
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

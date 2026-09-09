@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { createPageMetadata, PUBLIC_PAGE_SEO } from "@/lib/seo";
 import {
   ArrowRight,
   Boxes,
@@ -87,6 +88,8 @@ const capabilities = [
     icon: <Globe2 aria-hidden="true" className="h-6 w-6" />,
   },
 ] as const;
+
+export const metadata = createPageMetadata(PUBLIC_PAGE_SEO.custom);
 
 const caseStudies = [
   {

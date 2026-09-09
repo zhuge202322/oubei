@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { createPageMetadata, PUBLIC_PAGE_SEO } from "@/lib/seo";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -19,11 +20,7 @@ import {
   SectionHeading,
 } from "@/components/site";
 
-export const metadata = {
-  title: "Engineering resources",
-  description:
-    "Technical guides, testing notes, quality documentation, and application insights from Xingtai Oubei sealing engineers.",
-};
+export const metadata = createPageMetadata(PUBLIC_PAGE_SEO.resources);
 
 type ResourceCard = {
   title: string;

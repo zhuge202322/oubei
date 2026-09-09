@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { createPageMetadata, PUBLIC_PAGE_SEO } from "@/lib/seo";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -17,11 +18,7 @@ import {
   Section,
 } from "@/components/site";
 
-export const metadata = {
-  title: "High-temperature O-ring materials",
-  description:
-    "A practical engineering comparison of FKM, FFKM, and silicone O-ring materials for high-temperature sealing systems.",
-};
+export const metadata = createPageMetadata(PUBLIC_PAGE_SEO.whitepaper);
 
 type ArticleVariant = "high-temperature" | "hardness";
 
