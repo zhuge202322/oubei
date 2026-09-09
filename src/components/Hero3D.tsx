@@ -14,11 +14,11 @@ type RingConfig = {
 };
 
 const ringConfigs: RingConfig[] = [
-  { position: [0, -1.1, -0.5], rotation: [Math.PI / 2.2, 0, Math.PI / 4], color: 0x238653, roughness: 0.58 },
-  { position: [0.5, 1.4, -1], rotation: [0.2, Math.PI / 4, Math.PI / 2], color: 0x2867a3, roughness: 0.32, metalness: 0.2, scale: 0.7, thickness: 0.12 },
-  { position: [0.5, 1.4, -0.8], rotation: [-0.1, -Math.PI / 4, -Math.PI / 2.2], color: 0xc62828, roughness: 0.5, scale: 0.8, thickness: 0.07 },
-  { position: [1.45, 0.35, -1.2], rotation: [0.8, -0.55, 0.35], color: 0xd4a72c, roughness: 0.38, metalness: 0.14, scale: 0.58, thickness: 0.1 },
-  { position: [-0.85, 1.65, -1.35], rotation: [1.15, 0.35, -0.75], color: 0x7b61a8, roughness: 0.46, scale: 0.62, thickness: 0.1 },
+  { position: [0.05, -1.35, -0.5], rotation: [Math.PI / 2.2, 0, Math.PI / 4], color: 0x238653, roughness: 0.58 },
+  { position: [1.05, 1.65, -1], rotation: [0.2, Math.PI / 4, Math.PI / 2], color: 0x2867a3, roughness: 0.32, metalness: 0.2, scale: 0.7, thickness: 0.12 },
+  { position: [0.05, 1.8, -0.8], rotation: [-0.1, -Math.PI / 4, -Math.PI / 2.2], color: 0xc62828, roughness: 0.5, scale: 0.8, thickness: 0.07 },
+  { position: [1.95, 0.3, -1.2], rotation: [0.8, -0.55, 0.35], color: 0xd4a72c, roughness: 0.38, metalness: 0.14, scale: 0.84, thickness: 0.1 },
+  { position: [-1.2, 2.15, -1.35], rotation: [1.15, 0.35, -0.75], color: 0x7b61a8, roughness: 0.46, scale: 0.88, thickness: 0.1 },
 ];
 
 export default function Hero3D() {
@@ -118,10 +118,10 @@ export default function Hero3D() {
       camera.updateProjectionMatrix();
       if (width < 768) {
         const mobileScale = THREE.MathUtils.clamp(width / 900, 0.48, 0.7);
-        stage.position.set(0, 0.58, 0);
+        stage.position.set(0.3, 0.58, 0);
         stage.scale.setScalar(mobileScale);
       } else {
-        stage.position.set(0.85, 0, 0);
+        stage.position.set(1.25, 0, 0);
         stage.scale.setScalar(1);
       }
       render();
