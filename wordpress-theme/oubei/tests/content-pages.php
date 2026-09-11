@@ -1,6 +1,6 @@
 <?php
 foreach ([
-    '/about/' => ['Founded 2022', 'Quality records on file', 'Our Journey', 'Manufacturing Prowess', 'Global Customer Reach', 'Specialist Team', 'People behind production'],
+    '/about/' => ['Founded 2022', 'Quality records on file', 'Our Journey', 'Manufacturing Prowess', 'Global Customer Reach', 'Production base', 'Application support', 'Repeat production', 'Export coordination', 'Specialist Team', 'People behind production'],
     '/custom/' => ['Turn a drawing into a dependable component.', 'Engineering support from first sketch to repeat order', 'Case studies'],
     '/resources/' => ['Knowledge center', 'Featured guide', 'Resource library', 'Request a tailored technical pack'],
 ] as $path => $copy) {

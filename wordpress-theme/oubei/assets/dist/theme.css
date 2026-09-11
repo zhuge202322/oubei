@@ -2649,6 +2649,138 @@ img {
     font-size: 40px;
   }
 }
+.oubei-global-map {
+  position: relative;
+  display: block;
+  min-height: 360px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.24);
+  background: rgba(21,65,108,.45);
+}
+.oubei-map-axis {
+  position: absolute;
+  z-index: 0;
+  background: rgba(255,255,255,.12);
+}
+.oubei-map-axis--vertical {
+  top: 40px;
+  bottom: 40px;
+  left: 50%;
+  width: 1px;
+}
+.oubei-map-axis--horizontal {
+  top: 50%;
+  left: 40px;
+  right: 40px;
+  height: 1px;
+}
+.oubei-map-globe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 250px;
+  height: 250px;
+  transform: translate(-50%,-50%);
+  fill: none;
+  stroke: rgba(174,198,221,.36);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.oubei-map-point {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  color: #fff;
+}
+.oubei-map-point--tl {
+  top: 38px;
+  left: 40px;
+}
+.oubei-map-point--tr {
+  top: 38px;
+  right: 40px;
+  text-align: right;
+}
+.oubei-map-point--bl {
+  bottom: 38px;
+  left: 40px;
+}
+.oubei-map-point--br {
+  right: 40px;
+  bottom: 38px;
+  text-align: right;
+}
+.oubei-map-icon {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  margin-bottom: 7px;
+  color: #a9c5df;
+  font-size: 16px;
+}
+.oubei-map-point--tr .oubei-map-icon,.oubei-map-point--br .oubei-map-icon {
+  margin-left: auto;
+}
+.oubei-map-icon--red {
+  color: #ef5350;
+}
+.oubei-map-point strong {
+  font-size: 14px;
+}
+.oubei-map-point small {
+  margin-top: 3px;
+  color: #73a7d3;
+  font: 9px/1.2 monospace;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.oubei-section--navy .oubei-global>div:first-child>p:not(.eyebrow) {
+  max-width: 620px;
+  font-size: 16px;
+}
+.oubei-global .oubei-stats {
+  margin-top: 40px;
+}
+@media (max-width:560px) {
+  .oubei-global-map {
+    min-height: 440px;
+  }
+  .oubei-map-globe {
+    width: 210px;
+    height: 210px;
+  }
+  .oubei-map-axis--vertical {
+    top: 28px;
+    bottom: 28px;
+  }
+  .oubei-map-axis--horizontal {
+    left: 24px;
+    right: 24px;
+  }
+  .oubei-map-point--tl {
+    top: 24px;
+    left: 24px;
+  }
+  .oubei-map-point--tr {
+    top: 24px;
+    right: 24px;
+  }
+  .oubei-map-point--bl {
+    bottom: 24px;
+    left: 24px;
+  }
+  .oubei-map-point--br {
+    right: 24px;
+    bottom: 24px;
+  }
+  .oubei-map-point strong {
+    font-size: 12px;
+  }
+}
 @property --tw-shadow {
   syntax: "*";
   inherits: false;
