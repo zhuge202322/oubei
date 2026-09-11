@@ -1,7 +1,8 @@
 <?php
 foreach ([
     '/about/' => ['Founded 2022', 'Quality records on file', 'Our Journey', 'Manufacturing Prowess', 'Global Customer Reach', 'Production base', 'Application support', 'Repeat production', 'Export coordination', 'Specialist Team', 'People behind production'],
-    '/custom/' => ['Turn a drawing into a dependable component.', 'Engineering support from first sketch to repeat order', 'Case studies'],
+    '/custom/' => ['Custom O-Ring Sets &amp; OEM/ODM Solutions', 'Design-to-Production Workflow', 'Consultation', 'Prototyping', 'Compounding', 'Mass production', 'Advanced Material Selection Guide', 'Mold design', 'Private labeling', 'Quality control', 'Global logistics', 'Case Studies', 'Ready to Engineer Your Custom Solution?'],
+    '/faq/' => ['Frequently asked questions', 'Manufacturer', '6-person R&amp;D', 'Final inspection', 'Company &amp; engineering', 'Orders &amp; delivery', 'Quality &amp; materials', 'Still need a technical answer?'],
     '/resources/' => ['Knowledge center', 'Featured guide', 'Resource library', 'Request a tailored technical pack'],
 ] as $path => $copy) {
     $response = wp_remote_get(home_url($path));
