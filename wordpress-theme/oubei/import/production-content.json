@@ -502,5 +502,36 @@
       "defaultPath": "/stitch/article-01.jpg"
     }
   ],
-  "resources": []
+  "resources": [
+    {
+      "slug": "choosing-o-ring-hardness",
+      "category": "Technical guide",
+      "title": "How to choose the right O-ring hardness for high-pressure systems",
+      "excerpt": "A practical guide to Shore A, squeeze, and extrusion risk in critical sealing designs.",
+      "date": "2025-03-18",
+      "readingTime": "6 min read",
+      "mediaSlot": "home.insight.hardness",
+      "content": "<div class=\"oubei-resource-callout\"><p class=\"eyebrow\">Design checkpoint</p><h2>Start with pressure and clearance</h2><p>A harder compound can resist extrusion, but it may need more assembly force and may seal less reliably on imperfect surfaces. Capture the pressure direction and maximum gap before choosing a grade.</p></div><section id=\"section-one\"><h2>1. Match hardness to the pressure window</h2><p>For many static hydraulic applications, 70 Shore A is a useful starting point. Move toward 80 or 90 Shore A as pressure and extrusion risk increase, while checking that the compound still provides enough compliance for surface finish and tolerance stack-up.</p><p>Hardness alone does not prevent damage. A correctly sized O-ring, controlled squeeze, compatible lubricant, and a backup ring can deliver a better result than simply moving to the hardest available material.</p></section><section id=\"section-two\"><h2>2. Use squeeze and gap as a design pair</h2><p>A useful way to review a drawing is to treat squeeze and extrusion gap as a pair. Radial and axial squeeze should be checked against the actual gland dimensions, surface finish, and pressure direction. When the gap cannot be reduced, a backup ring can protect the seal without forcing a compound change.</p><div class=\"oubei-table-wrap\"><table class=\"oubei-data-table\"><thead><tr><th>Shore A</th><th>Typical use</th><th>Design note</th></tr></thead><tbody><tr><td>60-70</td><td>Low to medium pressure, forgiving surfaces</td><td>Best compliance; check extrusion gap</td></tr><tr><td>75-80</td><td>General hydraulic and pneumatic service</td><td>Balanced sealing and assembly force</td></tr><tr><td>85-90</td><td>High pressure or larger clearance</td><td>Consider backup rings and chamfer quality</td></tr></tbody></table></div></section><section><h2>3. Validate the gland before release</h2><p>Before release, confirm gland fill, corner radii, lead-in chamfers, and assembly force. A short prototype run with the production surface finish is often the fastest way to reveal nicks, rolling, or installation damage.</p><p>Record the chosen hardness, squeeze, gap, and backup-ring decision on the drawing. That makes future substitutions auditable and avoids a silent change in sealing behavior.</p></section><section class=\"oubei-resource-takeaways\"><p class=\"eyebrow\">Key takeaways</p><ul><li>Choose hardness with pressure and clearance together</li><li>Use squeeze to manage compliance</li><li>Add backup rings where the gap requires them</li><li>Prototype with production finish and tooling</li></ul></section>"
+    },
+    {
+      "slug": "sealing-renewable-energy",
+      "category": "Industry insight",
+      "title": "Specialized sealing for renewable energy infrastructure",
+      "excerpt": "Material choices that improve reliability across solar, wind, and battery environments.",
+      "date": "2025-02-06",
+      "readingTime": "4 min read",
+      "mediaSlot": "home.insight.renewable",
+      "content": "<section><h2>Engineering context</h2><p>Reliable sealing begins with the full operating envelope: media, pressure, temperature, movement, surface finish, and the expected maintenance interval. A compound that performs well in one condition can fail quickly when these variables interact.</p></section><section><h2>What to validate</h2><p>Confirm compatibility with the actual fluid, review compression set at sustained temperature, and verify dimensional tolerances on the installed hardware. Production validation should use representative parts and agreed inspection criteria.</p></section><section class=\"oubei-resource-callout\"><h2>Discuss the application</h2><p>Share a drawing and operating conditions with our engineering team for a material and manufacturing review.</p><a class=\"button button--accent\" href=\"/quote\">Request a technical review →</a></section>"
+    },
+    {
+      "slug": "global-shipping-update",
+      "category": "Company update",
+      "title": "Expanded direct shipping routes to North America and the EU",
+      "excerpt": "New logistics partnerships shorten lead times while preserving batch-level traceability.",
+      "date": "2025-01-14",
+      "readingTime": "3 min read",
+      "mediaSlot": "home.insight.shipping",
+      "content": "<section><h2>Engineering context</h2><p>Reliable sealing begins with the full operating envelope: media, pressure, temperature, movement, surface finish, and the expected maintenance interval. A compound that performs well in one condition can fail quickly when these variables interact.</p></section><section><h2>What to validate</h2><p>Confirm compatibility with the actual fluid, review compression set at sustained temperature, and verify dimensional tolerances on the installed hardware. Production validation should use representative parts and agreed inspection criteria.</p></section><section class=\"oubei-resource-callout\"><h2>Discuss the application</h2><p>Share a drawing and operating conditions with our engineering team for a material and manufacturing review.</p><a class=\"button button--accent\" href=\"/quote\">Request a technical review →</a></section>"
+    }
+  ]
 }

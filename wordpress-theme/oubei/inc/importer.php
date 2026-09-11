@@ -30,5 +30,41 @@ function oubei_import_production_content(array $payload): array {
         update_post_meta($post_id, '_oubei_applications', oubei_sanitize_text_list($product['applications'] ?? []));
         update_post_meta($post_id, '_oubei_specs', oubei_sanitize_text_list($product['specs'] ?? []));
     }
+    $resource_term_ids = [];
+    foreach (($payload['resources'] ?? []) as $resource) {
+        $category_name = sanitize_text_field((string) ($resource['category'] ?? 'Technical resource'));
+        $category_slug = sanitize_title($category_name);
+        if ($category_slug !== '' && !isset($resource_term_ids[$category_slug])) {
+            $term = get_term_by('slug', $category_slug, 'oubei_resource_category');
+            if (!$term) {
+                $created = wp_insert_term($category_name, 'oubei_resource_category', ['slug' => $category_slug]);
+                if (is_wp_error($created)) { $result['errors'][] = $created->get_error_message(); continue; }
+                $resource_term_ids[$category_slug] = (int) $created['term_id'];
+                $result['created']++;
+            } else {
+                $resource_term_ids[$category_slug] = (int) $term->term_id;
+            }
+        }
+        $slug = sanitize_title($resource['slug'] ?? '');
+        if ($slug === '') { $result['skipped']++; continue; }
+        $existing = get_page_by_path($slug, OBJECT, 'oubei_resource');
+        $date = sanitize_text_field((string) ($resource['date'] ?? ''));
+        $postarr = [
+            'post_type' => 'oubei_resource',
+            'post_status' => 'publish',
+            'post_name' => $slug,
+            'post_title' => sanitize_text_field((string) ($resource['title'] ?? $slug)),
+            'post_excerpt' => sanitize_textarea_field((string) ($resource['excerpt'] ?? '')),
+            'post_content' => wp_kses_post((string) ($resource['content'] ?? '')),
+        ];
+        if ($date !== '') { $postarr['post_date'] = $date . (strlen($date) === 10 ? ' 12:00:00' : ''); }
+        if ($existing) { $postarr['ID'] = $existing->ID; $post_id = wp_update_post($postarr, true); $result['updated']++; }
+        else { $post_id = wp_insert_post($postarr, true); $result['created']++; }
+        if (is_wp_error($post_id)) { $result['errors'][] = $post_id->get_error_message(); continue; }
+        $post_id = (int) $post_id;
+        if ($category_slug !== '' && isset($resource_term_ids[$category_slug])) { wp_set_post_terms($post_id, [$resource_term_ids[$category_slug]], 'oubei_resource_category', false); }
+        update_post_meta($post_id, '_oubei_reading_time', sanitize_text_field((string) ($resource['readingTime'] ?? '')));
+        update_post_meta($post_id, '_oubei_media_slot', sanitize_text_field((string) ($resource['mediaSlot'] ?? '')));
+    }
     return $result;
 }

@@ -2,6 +2,12 @@
 oubei_assert(post_type_exists('oubei_product'), 'product post type missing');
 oubei_assert(taxonomy_exists('oubei_product_category'), 'product taxonomy missing');
 oubei_assert(post_type_exists('oubei_resource'), 'resource post type missing');
+oubei_assert(taxonomy_exists('oubei_resource_category'), 'resource category taxonomy missing');
+
+$resource_meta = get_registered_meta_keys('post', 'oubei_resource');
+foreach (['_oubei_reading_time', '_oubei_media_slot'] as $meta_key) {
+    oubei_assert(isset($resource_meta[$meta_key]), "resource meta missing: {$meta_key}");
+}
 
 $product_meta = get_registered_meta_keys('post', 'oubei_product');
 foreach (['_oubei_code', '_oubei_material', '_oubei_short_description', '_oubei_applications', '_oubei_specs', '_oubei_gallery_ids'] as $meta_key) {
