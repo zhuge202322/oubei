@@ -44,6 +44,15 @@ function oubei_register_product_content(): void {
 }
 add_action('init', 'oubei_register_product_content');
 
+add_action('pre_get_posts', static function (WP_Query $query): void {
+    if (is_admin() || !$query->is_main_query() || !$query->is_post_type_archive('oubei_product')) { return; }
+    $meta_query = [];
+    $material = sanitize_text_field(wp_unslash($_GET['material'] ?? ''));
+    if ($material !== '') { $meta_query[] = ['key' => '_oubei_material', 'value' => $material, 'compare' => 'LIKE']; }
+    if ($meta_query) { $query->set('meta_query', $meta_query); }
+    $query->set('posts_per_page', 12);
+});
+
 function oubei_get_product_data(int $post_id): array {
     $post = get_post($post_id);
     if (!$post instanceof WP_Post || $post->post_type !== 'oubei_product') {
@@ -74,4 +83,3 @@ function oubei_get_product_data(int $post_id): array {
         'permalink' => get_permalink($post),
     ];
 }
-

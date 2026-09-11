@@ -56,6 +56,22 @@ if ($LASTEXITCODE -ne 0) {
 & $php $wpPhar option update permalink_structure '/blog/%postname%/' --path=$SitePath
 & $php $wpPhar rewrite structure '/blog/%postname%/' --path=$SitePath --hard
 
+$htaccess = Join-Path $SitePath '.htaccess'
+if (-not (Test-Path -LiteralPath $htaccess)) {
+    @'
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+'@ | Set-Content -LiteralPath $htaccess -Encoding ASCII
+}
+
 $themeTarget = Join-Path $SitePath 'wp-content\themes\oubei'
 if (Test-Path -LiteralPath $themeTarget) { Remove-Item -LiteralPath $themeTarget -Recurse -Force }
 New-Item -ItemType Junction -Path $themeTarget -Target $themeSource | Out-Null
