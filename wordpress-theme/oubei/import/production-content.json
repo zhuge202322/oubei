@@ -1,0 +1,506 @@
+{
+  "version": 1,
+  "settings": {
+    "contact_address": "Xingtai, Hebei, China",
+    "contact_email": "htobsealjason@outlook.com",
+    "contact_hours": "Mon-Fri, 08:30-17:30 (CST)",
+    "contact_name": "Xingtai Oubei Rubber Products Co., Ltd.",
+    "contact_phone": "+86 18803390651",
+    "contact_short_name": "Xingtai Oubei",
+    "logo_path": "/logo.webp",
+    "site_name": "Xingtai Oubei",
+    "social_facebook": "",
+    "social_instagram": "",
+    "social_linkedin": "",
+    "social_tiktok": "",
+    "social_whatsapp": "",
+    "social_youtube": ""
+  },
+  "categories": [
+    {
+      "id": 1,
+      "name": "Static sealing",
+      "slug": "static-sealing",
+      "description": "",
+      "sort_order": 0,
+      "is_active": 1
+    },
+    {
+      "id": 2,
+      "name": "Rotary sealing",
+      "slug": "rotary-sealing",
+      "description": "",
+      "sort_order": 1,
+      "is_active": 1
+    },
+    {
+      "id": 3,
+      "name": "Fluid power",
+      "slug": "fluid-power",
+      "description": "",
+      "sort_order": 2,
+      "is_active": 1
+    },
+    {
+      "id": 4,
+      "name": "Engineered components",
+      "slug": "engineered-components",
+      "description": "",
+      "sort_order": 3,
+      "is_active": 1
+    }
+  ],
+  "products": [
+    {
+      "slug": "o-rings",
+      "name": "Precision O-Rings",
+      "code": "OR-SERIES",
+      "categorySlug": "static-sealing",
+      "shortDescription": "Reliable axial and radial sealing for demanding equipment.",
+      "description": "Molded and precision-trimmed O-rings for hydraulic, pneumatic, automotive, and general industrial assemblies.",
+      "material": "NBR, FKM, EPDM, VMQ",
+      "applications": [
+        "Hydraulics",
+        "Pneumatics",
+        "Automotive",
+        "General industry"
+      ],
+      "specs": [
+        "AS568, ISO 3601, JIS B 2401",
+        "2 to 500 mm ID",
+        "40 to 90 Shore A"
+      ],
+      "imageDefaultPath": "/stitch/products-05.jpg",
+      "gallery": [
+        {
+          "defaultPath": "/stitch/products-05.jpg",
+          "alt": "Precision rubber components in a production workshop",
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "slug": "oil-seals",
+      "name": "Rotary Oil Seals",
+      "code": "OS-SERIES",
+      "categorySlug": "rotary-sealing",
+      "shortDescription": "Low-friction sealing for shafts, gearboxes, and drive systems.",
+      "description": "Engineered lip profiles and reinforcing options protect rotating equipment from oil ingress and contamination.",
+      "material": "NBR, FKM, ACM, PTFE",
+      "applications": [
+        "Motors",
+        "Gearboxes",
+        "Pumps",
+        "Agricultural machinery"
+      ],
+      "specs": [
+        "DIN 3760 profiles",
+        "Up to 40 m/s peripheral speed",
+        "Custom dust lips"
+      ],
+      "imageDefaultPath": "/stitch/products-01.jpg",
+      "gallery": [
+        {
+          "defaultPath": "/stitch/products-01.jpg",
+          "alt": "Organized oil seal inventory in a manufacturing warehouse",
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "slug": "hydraulic-seals",
+      "name": "Hydraulic Seals",
+      "code": "HS-SERIES",
+      "categorySlug": "fluid-power",
+      "shortDescription": "Stable sealing performance under high pressure and cycling.",
+      "description": "Rod, piston, wiper, and guide elements designed for cylinders and valves in mobile and industrial hydraulics.",
+      "material": "PU, PTFE, NBR, FKM",
+      "applications": [
+        "Mobile hydraulics",
+        "Injection molding",
+        "Presses",
+        "Valves"
+      ],
+      "specs": [
+        "Up to 50 MPa working pressure",
+        "-40 to 200°C service range",
+        "Low compression set"
+      ],
+      "imageDefaultPath": "/stitch/products-06.jpg",
+      "gallery": [
+        {
+          "defaultPath": "/stitch/products-06.jpg",
+          "alt": "Finished sealing products prepared for shipment",
+          "sortOrder": 0
+        }
+      ]
+    },
+    {
+      "slug": "custom-molded-parts",
+      "name": "Custom Molded Parts",
+      "code": "CM-SERIES",
+      "categorySlug": "engineered-components",
+      "shortDescription": "Application-specific geometry, compound, and finish.",
+      "description": "From prototype tooling to repeat production, our engineering team develops custom rubber and plastic components to drawing.",
+      "material": "Custom compound selection",
+      "applications": [
+        "OEM assemblies",
+        "Appliances",
+        "Energy",
+        "Industrial equipment"
+      ],
+      "specs": [
+        "Tooling review within 48 hours",
+        "Insert and multi-shot molding",
+        "PPAP and FAI support"
+      ],
+      "imageDefaultPath": "/stitch/products-04.jpg",
+      "gallery": [
+        {
+          "defaultPath": "/stitch/products-04.jpg",
+          "alt": "Rubber product testing equipment in the quality laboratory",
+          "sortOrder": 0
+        }
+      ]
+    }
+  ],
+  "mediaSlots": [
+    {
+      "slotKey": "home.hero.left",
+      "pageKey": "home",
+      "label": "Hero left product",
+      "alt": "Green rubber sealing ring",
+      "defaultPath": "/hero-products/1.png"
+    },
+    {
+      "slotKey": "home.hero.right",
+      "pageKey": "home",
+      "label": "Hero right product",
+      "alt": "Brown rotary sealing ring",
+      "defaultPath": "/hero-products/2.png"
+    },
+    {
+      "slotKey": "home.factory.workshop",
+      "pageKey": "home",
+      "label": "Factory workshop",
+      "alt": "Oubei rubber molding workshop",
+      "defaultPath": "/factory/车间1.jpg"
+    },
+    {
+      "slotKey": "home.factory.lab",
+      "pageKey": "home",
+      "label": "Factory laboratory",
+      "alt": "Material testing laboratory",
+      "defaultPath": "/factory/实验室.jpg"
+    },
+    {
+      "slotKey": "home.factory.warehouse",
+      "pageKey": "home",
+      "label": "Factory warehouse",
+      "alt": "Finished goods warehouse",
+      "defaultPath": "/factory/成品仓.jpg"
+    },
+    {
+      "slotKey": "home.insight.hardness",
+      "pageKey": "home",
+      "label": "Insight: O-ring hardness",
+      "alt": "Technician reviewing seal test results in the quality laboratory",
+      "defaultPath": "/stitch/home-08.jpg"
+    },
+    {
+      "slotKey": "home.insight.renewable",
+      "pageKey": "home",
+      "label": "Insight: renewable energy",
+      "alt": "Industrial facility prepared for long-life component production",
+      "defaultPath": "/stitch/home-09.jpg"
+    },
+    {
+      "slotKey": "home.insight.shipping",
+      "pageKey": "home",
+      "label": "Insight: shipping update",
+      "alt": "Finished product warehouse with organized dispatch inventory",
+      "defaultPath": "/stitch/home-10.jpg"
+    },
+    {
+      "slotKey": "products.o-rings",
+      "pageKey": "products",
+      "label": "O-rings product image",
+      "alt": "Precision rubber components in a production workshop",
+      "defaultPath": "/stitch/products-05.jpg"
+    },
+    {
+      "slotKey": "products.oil-seals",
+      "pageKey": "products",
+      "label": "Oil seals product image",
+      "alt": "Organized oil seal inventory in a manufacturing warehouse",
+      "defaultPath": "/stitch/products-01.jpg"
+    },
+    {
+      "slotKey": "products.hydraulic-seals",
+      "pageKey": "products",
+      "label": "Hydraulic seals product image",
+      "alt": "Finished sealing products prepared for shipment",
+      "defaultPath": "/stitch/products-06.jpg"
+    },
+    {
+      "slotKey": "products.custom-molded-parts",
+      "pageKey": "products",
+      "label": "Custom molded parts image",
+      "alt": "Rubber product testing equipment in the quality laboratory",
+      "defaultPath": "/stitch/products-04.jpg"
+    },
+    {
+      "slotKey": "products.detail.fkm.1",
+      "pageKey": "products-detail",
+      "label": "FKM detail image 1",
+      "alt": "FKM rubber seal detail",
+      "defaultPath": "/stitch/product-detail-06.jpg"
+    },
+    {
+      "slotKey": "products.detail.fkm.2",
+      "pageKey": "products-detail",
+      "label": "FKM detail image 2",
+      "alt": "FKM rubber seal profile",
+      "defaultPath": "/stitch/product-detail-07.jpg"
+    },
+    {
+      "slotKey": "products.detail.fkm.3",
+      "pageKey": "products-detail",
+      "label": "FKM detail image 3",
+      "alt": "FKM rubber seal application",
+      "defaultPath": "/stitch/product-detail-08.jpg"
+    },
+    {
+      "slotKey": "products.detail.fkm.4",
+      "pageKey": "products-detail",
+      "label": "FKM detail image 4",
+      "alt": "FKM rubber seal surface",
+      "defaultPath": "/stitch/product-detail-09.jpg"
+    },
+    {
+      "slotKey": "materials.fkm",
+      "pageKey": "materials",
+      "label": "FKM material image",
+      "alt": "FKM material sample",
+      "defaultPath": "/stitch/products-05.jpg"
+    },
+    {
+      "slotKey": "materials.nbr",
+      "pageKey": "materials",
+      "label": "NBR material image",
+      "alt": "NBR material sample",
+      "defaultPath": "/stitch/product-detail-01.jpg"
+    },
+    {
+      "slotKey": "materials.vmq",
+      "pageKey": "materials",
+      "label": "VMQ material image",
+      "alt": "VMQ material sample",
+      "defaultPath": "/stitch/product-detail-06.jpg"
+    },
+    {
+      "slotKey": "materials.epdm",
+      "pageKey": "materials",
+      "label": "EPDM material image",
+      "alt": "EPDM material sample",
+      "defaultPath": "/stitch/product-detail-09.jpg"
+    },
+    {
+      "slotKey": "about.gate",
+      "pageKey": "about",
+      "label": "Facility entrance",
+      "alt": "Oubei manufacturing facility entrance",
+      "defaultPath": "/factory/新公司大门图片.png"
+    },
+    {
+      "slotKey": "about.quality.1",
+      "pageKey": "about",
+      "label": "Quality badge 1",
+      "alt": "ISO 9001 quality system",
+      "defaultPath": "/stitch/about-02.jpg"
+    },
+    {
+      "slotKey": "about.quality.2",
+      "pageKey": "about",
+      "label": "Quality badge 2",
+      "alt": "SGS quality verification",
+      "defaultPath": "/stitch/about-03.jpg"
+    },
+    {
+      "slotKey": "about.quality.3",
+      "pageKey": "about",
+      "label": "Quality badge 3",
+      "alt": "RoHS compliance",
+      "defaultPath": "/stitch/about-04.jpg"
+    },
+    {
+      "slotKey": "about.quality.4",
+      "pageKey": "about",
+      "label": "Quality badge 4",
+      "alt": "Automotive quality controls",
+      "defaultPath": "/stitch/about-05.jpg"
+    },
+    {
+      "slotKey": "about.quality.5",
+      "pageKey": "about",
+      "label": "Quality badge 5",
+      "alt": "International audit readiness",
+      "defaultPath": "/stitch/about-06.jpg"
+    },
+    {
+      "slotKey": "about.certificate.1",
+      "pageKey": "about",
+      "label": "Certificate 1",
+      "alt": "Oubei certificate 1",
+      "defaultPath": "/certificates/1.png"
+    },
+    {
+      "slotKey": "about.certificate.2",
+      "pageKey": "about",
+      "label": "Certificate 2",
+      "alt": "Oubei certificate 2",
+      "defaultPath": "/certificates/2.png"
+    },
+    {
+      "slotKey": "about.certificate.3",
+      "pageKey": "about",
+      "label": "Certificate 3",
+      "alt": "Oubei certificate 3",
+      "defaultPath": "/certificates/3.png"
+    },
+    {
+      "slotKey": "about.history.factory",
+      "pageKey": "about",
+      "label": "History factory image",
+      "alt": "Oubei factory history",
+      "defaultPath": "/stitch/about-08.jpg"
+    },
+    {
+      "slotKey": "about.history.warehouse",
+      "pageKey": "about",
+      "label": "History warehouse image",
+      "alt": "Organized export warehouse",
+      "defaultPath": "/stitch/about-09.jpg"
+    },
+    {
+      "slotKey": "about.history.team",
+      "pageKey": "about",
+      "label": "History team image",
+      "alt": "Oubei team at work",
+      "defaultPath": "/stitch/about-10.jpg"
+    },
+    {
+      "slotKey": "about.capability",
+      "pageKey": "about",
+      "label": "Capability image",
+      "alt": "Oubei manufacturing capability",
+      "defaultPath": "/stitch/about-07.jpg"
+    },
+    {
+      "slotKey": "about.team.1",
+      "pageKey": "about",
+      "label": "Team member 1",
+      "alt": "Oubei engineering team member",
+      "defaultPath": "/stitch/about-14.jpg"
+    },
+    {
+      "slotKey": "about.team.2",
+      "pageKey": "about",
+      "label": "Team member 2",
+      "alt": "Oubei engineering team member",
+      "defaultPath": "/stitch/about-15.jpg"
+    },
+    {
+      "slotKey": "about.team.3",
+      "pageKey": "about",
+      "label": "Team member 3",
+      "alt": "Oubei engineering team member",
+      "defaultPath": "/stitch/about-16.jpg"
+    },
+    {
+      "slotKey": "about.team.4",
+      "pageKey": "about",
+      "label": "Team member 4",
+      "alt": "Senior materials engineer",
+      "defaultPath": "/stitch/about-17.jpg"
+    },
+    {
+      "slotKey": "custom.hero",
+      "pageKey": "custom",
+      "label": "Custom solutions hero",
+      "alt": "Custom rubber molding solution",
+      "defaultPath": "/stitch/custom-01.jpg"
+    },
+    {
+      "slotKey": "custom.study.1",
+      "pageKey": "custom",
+      "label": "Custom case study 1",
+      "alt": "Custom molding case study",
+      "defaultPath": "/stitch/custom-02.jpg"
+    },
+    {
+      "slotKey": "custom.study.2",
+      "pageKey": "custom",
+      "label": "Custom case study 2",
+      "alt": "Custom sealing case study",
+      "defaultPath": "/stitch/custom-03.jpg"
+    },
+    {
+      "slotKey": "resources.hero",
+      "pageKey": "resources",
+      "label": "Resources hero",
+      "alt": "Oubei technical resources",
+      "defaultPath": "/stitch/resources-01.jpg"
+    },
+    {
+      "slotKey": "resources.2",
+      "pageKey": "resources",
+      "label": "Resource image 2",
+      "alt": "Oubei resource illustration",
+      "defaultPath": "/stitch/resources-02.jpg"
+    },
+    {
+      "slotKey": "resources.3",
+      "pageKey": "resources",
+      "label": "Resource image 3",
+      "alt": "Oubei resource illustration",
+      "defaultPath": "/stitch/resources-03.jpg"
+    },
+    {
+      "slotKey": "resources.4",
+      "pageKey": "resources",
+      "label": "Resource image 4",
+      "alt": "Oubei resource illustration",
+      "defaultPath": "/stitch/resources-04.jpg"
+    },
+    {
+      "slotKey": "resources.5",
+      "pageKey": "resources",
+      "label": "Resource image 5",
+      "alt": "Oubei resource illustration",
+      "defaultPath": "/stitch/resources-05.jpg"
+    },
+    {
+      "slotKey": "resources.6",
+      "pageKey": "resources",
+      "label": "Resource image 6",
+      "alt": "Oubei resource illustration",
+      "defaultPath": "/stitch/resources-06.jpg"
+    },
+    {
+      "slotKey": "resources.7",
+      "pageKey": "resources",
+      "label": "Resource image 7",
+      "alt": "Oubei resource illustration",
+      "defaultPath": "/stitch/resources-07.jpg"
+    },
+    {
+      "slotKey": "resources.article.hero",
+      "pageKey": "resources-detail",
+      "label": "Technical article image",
+      "alt": "O-rings in several compounds on a laboratory workbench",
+      "defaultPath": "/stitch/article-01.jpg"
+    }
+  ],
+  "resources": []
+}
