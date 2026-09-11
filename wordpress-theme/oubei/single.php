@@ -1,0 +1,1 @@
+<?php get_header(); ?><main class="oubei-section"><article class="oubei-container oubei-prose"><p class="eyebrow"><?php echo esc_html(get_the_date()); ?></p><h1><?php the_title(); ?></h1><?php if (has_post_thumbnail()) { the_post_thumbnail('large'); } ?><div><?php the_content(); ?></div></article></main><?php get_footer();

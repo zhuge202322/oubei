@@ -14,5 +14,6 @@ add_action('after_switch_theme', 'oubei_ensure_core_pages');
 
 function oubei_register_page_templates(): void {
     add_rewrite_rule('^resources/?$', 'index.php?pagename=resources', 'top');
+    add_rewrite_rule('^blog/?$', 'index.php?pagename=blog', 'top');
 }
 add_action('init', 'oubei_register_page_templates');
