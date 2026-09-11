@@ -2102,6 +2102,169 @@ img {
     font-size: 28px;
   }
 }
+.oubei-quote-hero {
+  color: #fff;
+  background: var(--navy);
+}
+.oubei-quote-intro {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 70px;
+  padding: 42px 0 76px;
+}
+.oubei-quote-intro h1 {
+  margin: 18px 0 0;
+  color: #fff;
+  font-size: clamp(42px,6vw,68px);
+  line-height: 1.04;
+}
+.oubei-quote-intro p:not(.eyebrow) {
+  max-width: 650px;
+  margin: 22px 0 0;
+  color: rgba(255,255,255,.75);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.oubei-quote-facts {
+  display: grid;
+  gap: 0;
+  border-block: 1px solid rgba(255,255,255,.18);
+}
+.oubei-quote-facts div {
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,.18);
+}
+.oubei-quote-facts strong {
+  display: block;
+  color: #fff;
+}
+.oubei-quote-facts span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(255,255,255,.58);
+  font-size: 12px;
+}
+.oubei-quote-facts a {
+  padding-top: 14px;
+  color: #ff9a9a;
+  font-size: 13px;
+}
+.oubei-quote-body {
+  padding: 72px 0;
+  background: var(--paper);
+}
+.oubei-quote-layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 70px;
+}
+.oubei-quote-progress {
+  display: grid;
+  align-content: start;
+  gap: 0;
+}
+.oubei-quote-progress div {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  column-gap: 10px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.oubei-quote-progress b {
+  grid-row: span 2;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font: 12px monospace;
+}
+.oubei-quote-progress .is-active b {
+  color: #fff;
+  border-color: var(--navy);
+  background: var(--navy);
+}
+.oubei-quote-progress span {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 14px;
+}
+.oubei-quote-progress small {
+  color: var(--muted);
+  font-size: 11px;
+}
+.oubei-quote-form-card {
+  max-width: 760px;
+  padding: 38px;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+.oubei-quote-form-card h2 {
+  margin: 0;
+  color: var(--navy);
+  font-size: 34px;
+}
+.oubei-quote-form-card>p:not(.eyebrow):not(.oubei-form-success):not(.oubei-form-error) {
+  color: var(--muted);
+  line-height: 1.7;
+}
+.oubei-quote-form-card .oubei-inquiry-form {
+  grid-template-columns: 1fr 1fr;
+  max-width: none;
+}
+.oubei-quote-form-card .oubei-inquiry-form label:nth-last-of-type(1),.oubei-quote-form-card .oubei-inquiry-form label:nth-last-of-type(2),.oubei-quote-form-card .oubei-inquiry-form label:nth-last-of-type(3),.oubei-quote-form-card .oubei-inquiry-form label:nth-last-of-type(4),.oubei-quote-form-card .oubei-inquiry-form label:nth-of-type(4),.oubei-quote-form-card .oubei-inquiry-form label:nth-of-type(5),.oubei-quote-form-card .oubei-inquiry-form button {
+  grid-column: 1/-1;
+}
+.oubei-quote-form-card select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font: inherit;
+}
+.oubei-quote-note {
+  margin: 26px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.oubei-quote-guides {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 700;
+}
+@media (max-width:860px) {
+  .oubei-quote-intro,.oubei-quote-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .oubei-quote-body {
+    padding: 52px 0;
+  }
+  .oubei-quote-progress {
+    grid-template-columns: repeat(3,1fr);
+    display: grid;
+    gap: 10px;
+  }
+  .oubei-quote-progress div {
+    display: block;
+    padding: 12px;
+    border: 1px solid var(--line);
+  }
+  .oubei-quote-progress b {
+    margin-bottom: 8px;
+  }
+  .oubei-quote-progress small {
+    display: block;
+    margin-top: 4px;
+  }
+  .oubei-quote-form-card .oubei-inquiry-form {
+    grid-template-columns: 1fr;
+  }
+}
 @property --tw-shadow {
   syntax: "*";
   inherits: false;
