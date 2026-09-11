@@ -1,0 +1,1 @@
+<footer style="background:#06254a;color:#fff;padding:40px 0;margin-top:64px"><div class="oubei-container"><p>&copy; <?php echo esc_html(gmdate('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?></p></div></footer><?php wp_footer(); ?></body></html>

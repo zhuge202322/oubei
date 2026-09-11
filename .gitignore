@@ -21,6 +21,10 @@
 # production
 /build
 /storage/
+/.wordpress-tools/
+/wordpress-theme/oubei/node_modules/
+/wordpress-theme/oubei/.phpunit.result.cache
+/dist/
 /.oubei-data/
 *.db
 *.db-shm
