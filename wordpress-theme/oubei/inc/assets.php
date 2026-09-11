@@ -6,5 +6,8 @@ function oubei_asset_uri(string $path): string {
 }
 
 add_action('wp_enqueue_scripts', static function (): void {
-    wp_enqueue_style('oubei-theme', get_stylesheet_uri(), [], '1.0.0');
+    $css = get_theme_file_path('assets/dist/theme.css');
+    $js = get_theme_file_path('assets/dist/site.js');
+    wp_enqueue_style('oubei-theme', oubei_asset_uri('assets/dist/theme.css'), [], file_exists($css) ? (string) filemtime($css) : '1.0.0');
+    wp_enqueue_script('oubei-site', oubei_asset_uri('assets/dist/site.js'), [], file_exists($js) ? (string) filemtime($js) : '1.0.0', true);
 });
