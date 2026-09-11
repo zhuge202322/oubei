@@ -37,3 +37,36 @@ filterToggle?.addEventListener('click', () => {
   const open = filterPanel?.classList.toggle('is-open') ?? false;
   filterToggle.setAttribute('aria-expanded', String(open));
 });
+
+const quoteForm = document.querySelector('[data-quote-form]');
+if (quoteForm instanceof HTMLFormElement) {
+  let quoteStep = 1;
+  const panels = [...quoteForm.querySelectorAll('[data-quote-step]')];
+  const progress = [...quoteForm.querySelectorAll('[data-quote-progress]')];
+  const showQuoteStep = (nextStep) => {
+    quoteStep = Math.max(1, Math.min(3, nextStep));
+    panels.forEach((panel) => { panel.hidden = Number(panel.dataset.quoteStep) !== quoteStep; });
+    progress.forEach((item) => {
+      const number = Number(item.dataset.quoteProgress);
+      item.classList.toggle('is-active', number === quoteStep);
+      item.classList.toggle('is-complete', number < quoteStep);
+    });
+  };
+  const validateStep = () => {
+    const panel = quoteForm.querySelector(`[data-quote-step="${quoteStep}"]`);
+    const fields = panel ? [...panel.querySelectorAll('input[required], select[required], textarea[required]')] : [];
+    const invalid = fields.find((field) => !field.checkValidity());
+    if (invalid) { invalid.reportValidity(); invalid.focus(); return false; }
+    return true;
+  };
+  quoteForm.querySelectorAll('[data-quote-next]').forEach((button) => button.addEventListener('click', () => {
+    if (!validateStep()) return;
+    showQuoteStep(quoteStep + 1);
+    if (quoteStep === 3) {
+      const value = (name) => quoteForm.elements.namedItem(name)?.value || 'Not specified';
+      const review = quoteForm.querySelector('[data-quote-review]');
+      if (review) review.innerHTML = `<div><b>Project</b><span>${value('project_type')} / ${value('material')}</span></div><div><b>Application</b><span>${value('application')} / ${value('quantity')}</span></div><div><b>Contact</b><span>${value('name')} / ${value('company')}<br>${value('email')} / ${value('phone')}</span></div>`;
+    }
+  }));
+  quoteForm.querySelectorAll('[data-quote-back]').forEach((button) => button.addEventListener('click', () => showQuoteStep(quoteStep - 1)));
+}

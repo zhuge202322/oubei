@@ -2265,6 +2265,269 @@ img {
     grid-template-columns: 1fr;
   }
 }
+.oubei-team-section {
+  background: #fff;
+}
+.oubei-team-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+}
+.oubei-team-grid article {
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.oubei-team-grid img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+.oubei-team-grid h3 {
+  margin: 16px 18px 0;
+  color: var(--navy);
+  font-size: 18px;
+}
+.oubei-team-grid p {
+  margin: 8px 18px 20px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.oubei-global-map {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 24px;
+}
+.oubei-global-map small {
+  display: block;
+  color: rgba(255,255,255,.5);
+  font-size: 10px;
+  margin-top: 4px;
+}
+@media (max-width:860px) {
+  .oubei-team-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+@media (max-width:560px) {
+  .oubei-team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.oubei-quote-hero {
+  color: #fff;
+  background: var(--navy);
+}
+.oubei-quote-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  padding: 34px 0 70px;
+}
+.oubei-quote-intro h1 {
+  margin: 18px 0 0;
+  color: #fff;
+  font-size: clamp(42px,6vw,68px);
+  line-height: 1.04;
+}
+.oubei-quote-intro p:not(.eyebrow) {
+  max-width: 620px;
+  color: rgba(255,255,255,.72);
+  font-size: 17px;
+  line-height: 1.7;
+}
+.oubei-quote-trust {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 38px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,.16);
+}
+.oubei-quote-trust strong,.oubei-quote-trust span {
+  display: block;
+}
+.oubei-quote-trust span {
+  margin-top: 5px;
+  color: rgba(255,255,255,.58);
+  font-size: 12px;
+}
+.oubei-quote-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 30px;
+  color: #ff9a9a;
+  font-size: 13px;
+}
+.oubei-quote-form-card {
+  padding: 34px;
+  background: #fff;
+  color: var(--ink);
+}
+.oubei-quote-form-card h2 {
+  margin: 8px 0 0;
+  color: var(--navy);
+  font-size: 30px;
+}
+.oubei-quote-form-card>p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.6;
+}
+.oubei-quote-progress {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin-bottom: 26px;
+}
+.oubei-quote-progress>div {
+  padding: 12px 8px;
+  border-top: 2px solid var(--line);
+}
+.oubei-quote-progress>div.is-active {
+  border-color: var(--red);
+}
+.oubei-quote-progress b {
+  display: inline-grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--muted);
+  background: var(--paper);
+  font: 11px monospace;
+}
+.oubei-quote-progress .is-active b {
+  color: #fff;
+  background: var(--red);
+}
+.oubei-quote-progress span,.oubei-quote-progress small {
+  display: block;
+  margin-left: 32px;
+}
+.oubei-quote-progress span {
+  margin-top: -23px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+.oubei-quote-progress small {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.oubei-quote-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 24px;
+}
+.oubei-quote-fields label {
+  display: grid;
+  gap: 7px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+.oubei-quote-fields input,.oubei-quote-fields select,.oubei-quote-fields textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  font: inherit;
+}
+.oubei-field-wide {
+  grid-column: 1/-1;
+}
+.oubei-file-field {
+  padding: 14px;
+  border: 1px dashed var(--line);
+  background: var(--paper);
+}
+.oubei-file-field input {
+  padding: 8px;
+  border: 0;
+  background: transparent;
+}
+.oubei-file-field>span {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.oubei-quote-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+}
+.oubei-quote-review {
+  display: grid;
+  gap: 0;
+  margin-top: 20px;
+  border: 1px solid var(--line);
+}
+.oubei-quote-review div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 14px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.oubei-quote-review b {
+  color: var(--muted);
+  font: 10px monospace;
+  text-transform: uppercase;
+}
+.oubei-consent {
+  display: flex;
+  gap: 9px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.oubei-quote-note-strip {
+  padding: 26px 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.oubei-quote-note-strip .oubei-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.oubei-quote-note-strip p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.oubei-quote-note-strip a {
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+}
+.oubei-honeypot {
+  position: absolute;
+  left: -9999px;
+}
+@media (max-width:860px) {
+  .oubei-quote-intro {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .oubei-quote-fields {
+    grid-template-columns: 1fr;
+  }
+  .oubei-field-wide {
+    grid-column: auto;
+  }
+  .oubei-quote-note-strip .oubei-container {
+    flex-direction: column;
+  }
+  .oubei-quote-form-card {
+    padding: 24px;
+  }
+}
 @property --tw-shadow {
   syntax: "*";
   inherits: false;
