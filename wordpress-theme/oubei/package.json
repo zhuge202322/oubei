@@ -4,7 +4,8 @@
   "scripts": {
     "build:css": "postcss assets/src/theme.css -o assets/dist/theme.css",
     "build:js": "esbuild assets/src/site.js --bundle --minify --outfile=assets/dist/site.js",
-    "build": "npm run build:css && npm run build:js"
+    "build:hero": "esbuild assets/src/hero.js --bundle --minify --outfile=assets/dist/hero.js",
+    "build": "npm run build:css && npm run build:js && npm run build:hero"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.14",
