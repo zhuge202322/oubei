@@ -1,0 +1,1 @@
+<?php get_header(); ?><main class="oubei-section"><article class="oubei-container oubei-prose"><p class="eyebrow">Technical resource</p><h1><?php the_title(); ?></h1><?php the_content(); ?></article></main><?php get_footer();

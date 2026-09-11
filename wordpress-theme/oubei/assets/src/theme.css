@@ -65,6 +65,7 @@ img { max-width:100%; height:auto; }
 .oubei-product-meta { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:28px 0; padding:20px 0; border-block:1px solid var(--line); }
 .oubei-product-meta dt { color:var(--muted); font-size:12px; text-transform:uppercase; }.oubei-product-meta dd { margin:6px 0 0; font-weight:700; }
 .oubei-product-detail ul { padding-left:20px; color:var(--muted); line-height:1.8; }
+.oubei-faq { margin-top:14px; padding:18px 20px; background:var(--paper); border:1px solid var(--line); }.oubei-faq summary { cursor:pointer; color:var(--navy); font-weight:700; }.oubei-faq p { color:var(--muted); line-height:1.7; }.oubei-prose { max-width:800px; color:var(--muted); line-height:1.8; }.oubei-prose h1 { color:var(--navy); }
 @media(max-width:860px){.oubei-product-detail__grid{grid-template-columns:1fr}.oubei-product-meta{grid-template-columns:1fr}}
 .oubei-split { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:60px; }
 .oubei-feature-image { aspect-ratio:1.4; overflow:hidden; }
